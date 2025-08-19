@@ -14,6 +14,7 @@ import aas_core_codegen.java.main as java_main
 import aas_core_codegen.jsonschema.main as jsonschema_main
 import aas_core_codegen.python.main as python_main
 import aas_core_codegen.rdf_shacl.main as rdf_shacl_main
+import aas_core_codegen.linkml.main as linkml_main
 import aas_core_codegen.typescript.main as typescript_main
 import aas_core_codegen.xsd.main as xsd_main
 import aas_core_codegen.jsonld.main as jsonld_main
@@ -37,6 +38,7 @@ class Target(enum.Enum):
     PYTHON = "python"
     TYPESCRIPT = "typescript"
     RDF_SHACL = "rdf_shacl"
+    LINKML = "linkml"
     XSD = "xsd"
     JSONLD_CONTEXT = "jsonld_context"
     PROTOBUF = "protobuf"
@@ -163,6 +165,9 @@ def execute(params: Parameters, stdout: TextIO, stderr: TextIO) -> int:
 
     elif params.target is Target.RDF_SHACL:
         return rdf_shacl_main.execute(context=run_context, stdout=stdout, stderr=stderr)
+
+    elif params.target is Target.LINKML:
+        return linkml_main.execute(context=run_context, stdout=stdout, stderr=stderr)
 
     elif params.target is Target.XSD:
         return xsd_main.execute(context=run_context, stdout=stdout, stderr=stderr)
