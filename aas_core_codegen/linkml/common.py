@@ -105,7 +105,7 @@ def map_our_type_to_rdfs_range(
             # Please see
             # :py:const`aas_core_codegen.rdf_shacl.common._EXPLANATION_ABOUT_WHY_WE_EXPECT_LANG_STRING`
             # on why we hard-wire ``Lang_string`` here.
-            our_type_to_rdfs_range[our_type] = Stripped("rdf:langString")
+            our_type_to_rdfs_range[our_type] = Stripped("LangString")
 
         elif isinstance(
             our_type, (intermediate.AbstractClass, intermediate.ConcreteClass)
@@ -141,7 +141,7 @@ def map_our_type_to_rdfs_range(
     if len(errors) > 0:
         return None, Error(
             None,
-            "Failed to determine the mapping our type 🠒 ``rdfs:range`` "
+            "Failed to determine the mapping our type 🠒 ``linkml range`` "
             "for one or more of our types",
             errors,
         )
@@ -150,30 +150,30 @@ def map_our_type_to_rdfs_range(
 
 
 PRIMITIVE_MAP = {
-    intermediate.PrimitiveType.BOOL: "xsd:boolean",
-    intermediate.PrimitiveType.INT: "xsd:long",
-    intermediate.PrimitiveType.FLOAT: "xsd:double",
-    intermediate.PrimitiveType.STR: "xsd:string",
-    intermediate.PrimitiveType.BYTEARRAY: "xsd:base64Binary",
+    intermediate.PrimitiveType.BOOL: "boolean",
+    intermediate.PrimitiveType.INT: "long",
+    intermediate.PrimitiveType.FLOAT: "double",
+    intermediate.PrimitiveType.STR: "string",
+    intermediate.PrimitiveType.BYTEARRAY: "base64Binary",
 }
 
 
-def rdfs_range_for_type_annotation(
+def linkml_range_for_type_annotation(
     type_annotation: intermediate.TypeAnnotationUnion,
     our_type_to_rdfs_range: OurTypeToRdfsRange,
 ) -> Stripped:
-    """Determine the ``rdfs:range`` corresponding to the ``type_annotation``."""
+    """Determine the ``linkml range`` corresponding to the ``type_annotation``."""
     type_anno = intermediate.beneath_optional(type_annotation)
 
-    rdfs_range: str
+    linkml_range: str
 
     if isinstance(type_anno, intermediate.PrimitiveTypeAnnotation):
-        rdfs_range = PRIMITIVE_MAP[type_anno.a_type]
+        linkml_range = PRIMITIVE_MAP[type_anno.a_type]
 
     elif isinstance(type_anno, intermediate.OurTypeAnnotation):
-        maybe_rdfs_range = our_type_to_rdfs_range.get(type_anno.our_type, None)
+        maybe_linkml_range = our_type_to_rdfs_range.get(type_anno.our_type, None)
 
-        if maybe_rdfs_range is None:
+        if maybe_linkml_range is None:
             if isinstance(
                 type_anno.our_type,
                 (
@@ -182,25 +182,24 @@ def rdfs_range_for_type_annotation(
                     intermediate.ConcreteClass,
                 ),
             ):
-                cls_name = rdf_shacl_naming.class_name(type_anno.our_type.name)
-                rdfs_range = f"aas:{cls_name}"
+                linkml_range = rdf_shacl_naming.class_name(type_anno.our_type.name)
 
             elif isinstance(type_anno.our_type, intermediate.ConstrainedPrimitive):
-                rdfs_range = PRIMITIVE_MAP[type_anno.our_type.constrainee]
+                linkml_range = PRIMITIVE_MAP[type_anno.our_type.constrainee]
             else:
                 assert_never(type_anno.our_type)
         else:
-            rdfs_range = maybe_rdfs_range
+            linkml_range = maybe_linkml_range
 
     elif isinstance(type_anno, intermediate.ListTypeAnnotation):
-        rdfs_range = rdfs_range_for_type_annotation(
+        linkml_range = linkml_range_for_type_annotation(
             type_annotation=type_anno.items,
             our_type_to_rdfs_range=our_type_to_rdfs_range,
         )
     else:
         assert_never(type_anno)
 
-    return Stripped(rdfs_range)
+    return Stripped(linkml_range)
 
 
 assert all(literal in PRIMITIVE_MAP for literal in intermediate.PrimitiveType)

@@ -58,17 +58,11 @@ def _define_property_shape(
 
     prop_name = rdf_shacl_naming.property_name(prop.name)
 
-    rdfs_range = rdf_shacl_common.rdfs_range_for_type_annotation(
+    rdfs_range = rdf_shacl_common.linkml_range_for_type_annotation(
         type_annotation=type_anno, our_type_to_rdfs_range=our_type_to_rdfs_range
     )
 
-    if rdfs_range.startswith("rdf:") or rdfs_range.startswith("xsd:"):
-        stmts.append(Stripped(f"range: {rdfs_range}"))
-    elif rdfs_range.startswith("aas:"):
-        range_class = rdfs_range.removeprefix("aas:")
-        stmts.append(Stripped(f"range: {range_class}"))
-    else:
-        raise NotImplementedError(f"Unhandled namespace of the {rdfs_range=}")
+    stmts.append(Stripped(f"range: {rdfs_range}"))
 
     # region Define cardinality
 
@@ -340,6 +334,8 @@ def generate(
 
     preamble = Stripped(
         f"""\
+id: {xml_namespace}
+name: aas
 prefixes:
 {I}aas: {xml_namespace}
 {I}owl: http://www.w3.org/2002/07/owl#
@@ -347,9 +343,20 @@ prefixes:
 {I}rdfs: http://www.w3.org/2000/01/rdf-schema#
 {I}sh: http://www.w3.org/ns/shacl#
 {I}xsd: http://www.w3.org/2001/XMLSchema#
+{I}linkml: https://w3id.org/linkml/
 imports:
 {I}- linkml:types
-default_prefix: aas""")
+default_prefix: aas
+
+types:
+{I}LangString:
+{II}name: LangString
+{II}description: String with a language tag.
+{II}from_schema: rdf
+{II}exact_mappings:
+{III}- rdf:PlainLiteral
+{II}base: rdf:langString
+{II}uri: rdf:langString""")
 
     blocks = []  # type: List[Stripped]
 

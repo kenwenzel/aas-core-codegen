@@ -237,7 +237,7 @@ def _define_property(
 
     prop_name = rdf_shacl_naming.property_name(prop.name)
     prop_label = Stripped(f"has {rdf_shacl_naming.property_label(prop.name)}")
-    rdfs_range = rdf_shacl_common.rdfs_range_for_type_annotation(
+    rdfs_range = rdf_shacl_common.linkml_range_for_type_annotation(
         type_annotation=type_anno, our_type_to_rdfs_range=our_type_to_rdfs_range
     )
 
