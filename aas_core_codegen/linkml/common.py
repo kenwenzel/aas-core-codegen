@@ -150,11 +150,11 @@ def map_our_type_to_rdfs_range(
 
 
 PRIMITIVE_MAP = {
-    intermediate.PrimitiveType.BOOL: "xs:boolean",
-    intermediate.PrimitiveType.INT: "xs:long",
-    intermediate.PrimitiveType.FLOAT: "xs:double",
-    intermediate.PrimitiveType.STR: "xs:string",
-    intermediate.PrimitiveType.BYTEARRAY: "xs:base64Binary",
+    intermediate.PrimitiveType.BOOL: "xsd:boolean",
+    intermediate.PrimitiveType.INT: "xsd:long",
+    intermediate.PrimitiveType.FLOAT: "xsd:double",
+    intermediate.PrimitiveType.STR: "xsd:string",
+    intermediate.PrimitiveType.BYTEARRAY: "xsd:base64Binary",
 }
 
 

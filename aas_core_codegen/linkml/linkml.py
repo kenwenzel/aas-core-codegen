@@ -11,7 +11,9 @@ from aas_core_codegen.jsonschema import main as jsonschema_main
 from aas_core_codegen.linkml import (
     naming as rdf_shacl_naming,
     common as rdf_shacl_common,
+    _description as rdf_shacl_description,
 )
+
 from aas_core_codegen.linkml.common import INDENT as I, INDENT2 as II, INDENT3 as III
 
 
@@ -60,12 +62,11 @@ def _define_property_shape(
         type_annotation=type_anno, our_type_to_rdfs_range=our_type_to_rdfs_range
     )
 
-    cls_name = rdf_shacl_naming.class_name(cls.name)
-
-    if rdfs_range.startswith("rdf:") or rdfs_range.startswith("xs:"):
-        stmts.append(Stripped(f"sh:datatype {rdfs_range} ;"))
+    if rdfs_range.startswith("rdf:") or rdfs_range.startswith("xsd:"):
+        stmts.append(Stripped(f"range: {rdfs_range}"))
     elif rdfs_range.startswith("aas:"):
-        stmts.append(Stripped(f"sh:class {rdfs_range} ;"))
+        range_class = rdfs_range.removeprefix("aas:")
+        stmts.append(Stripped(f"range: {range_class}"))
     else:
         raise NotImplementedError(f"Unhandled namespace of the {rdfs_range=}")
 
@@ -196,17 +197,23 @@ def _define_property_shape(
                 f"to see how to implement this feature.",
             )
 
-    if min_count is not None:
-        stmts.append(Stripped(f"minimum_cardinality {min_count}"))
+    if min_count is not None and min_count > 0:
+        stmts.append(Stripped(f"required: true"))
 
-    if max_count is not None:
-        stmts.append(Stripped(f"maximum_cardinality {max_count}"))
+    if max_count is None:
+        stmts.append(Stripped(f"multivalued: true"))
 
-    if min_length is not None:
-        stmts.append(Stripped(f"sh:minLength {min_length} ;"))
+    if min_count is not None and min_count > 1:
+        stmts.append(Stripped(f"minimum_cardinality: {min_count}"))
 
-    if max_length is not None:
-        stmts.append(Stripped(f"sh:maxLength {max_length} ;"))
+    if max_count is not None and max_count > 1:
+        stmts.append(Stripped(f"maximum_cardinality: {max_count}"))
+
+    # if min_length is not None:
+    #    stmts.append(Stripped(f"sh:minLength {min_length} ;"))
+
+    # if max_length is not None:
+    #    stmts.append(Stripped(f"sh:maxLength {max_length} ;"))
 
     # endregion
 
@@ -282,51 +289,40 @@ def _define_for_class(
             None, f"Failed to generate the shape definition for {cls.name}", errors
         )
 
-    shape_name = rdf_shacl_naming.class_name(Identifier(cls.name + "_shape"))
     cls_name = rdf_shacl_naming.class_name(cls.name)
 
     writer = io.StringIO()
-    writer.write(
-        f"""\
-aas:{shape_name} a sh:NodeShape ;
-{I}sh:targetClass aas:{cls_name} ;"""
-    )
+    writer.write(f"{cls_name}:")
 
-    for inheritance in cls.inheritances:
-        subclass_shape_name = rdf_shacl_naming.class_name(
-            Identifier(f"{inheritance.name}_shape")
-        )
+    if cls.description:
+        summary, error = _generate_summary(cls.description)
+        if error is not None:
+            return None, error
 
-        writer.write(f"\n{I}rdfs:subClassOf aas:{subclass_shape_name} ;")
+        assert summary is not None
 
-    if isinstance(cls, intermediate.AbstractClass):
-        writer.write("\n")
-        # pylint: disable=line-too-long
-        writer.write(
-            textwrap.indent(
-                f'''\
-sh:sparql [
-{I}a sh:SPARQLConstraint ;
-{I}sh:message "({shape_name}): An aas:{cls_name} is an abstract class. Please use one of the subclasses for the generation of instances."@en ;
-{I}sh:prefixes aas: ;
-{I}sh:select """
-{II}SELECT ?this ?type
-{II}WHERE {{
-{III}?this rdf:type ?type .
-{III}FILTER (?type = aas:{cls_name})
-{II}}}
-{I}""" ;
-] ;''',
-                I,
-            )
-        )
-        # pylint: enable=line-too-long
+        if summary:
+            writer.write(textwrap.indent(f"\ndescription: {summary}", I))
 
-    for block in prop_blocks:
-        writer.write("\n")
-        writer.write(textwrap.indent(block, I))
+    if cls.inheritances:
+        if len(cls.inheritances) == 1:
+            superclass_name = rdf_shacl_naming.class_name(cls.inheritances[0].name)
+            writer.write(textwrap.indent(f"\nis_a: {superclass_name}", I))
+        else:
+            writer.write(textwrap.indent("\nmixins:", I))
+            for inheritance in cls.inheritances:
+                superclass_name = rdf_shacl_naming.class_name(inheritance.name)
+                writer.write(f"\n{III}- {superclass_name}")
 
-    writer.write("\n.")
+    # if isinstance(cls, intermediate.AbstractClass):
+        # writer.write("\n")
+        # mark as abstract class
+
+    if prop_blocks:
+        writer.write(f"\n{I}attributes:")
+        for block in prop_blocks:
+            writer.write("\n")
+            writer.write(textwrap.indent(block, II))
 
     return Stripped(writer.getvalue()), None
 
@@ -344,26 +340,18 @@ def generate(
 
     preamble = Stripped(
         f"""\
-@prefix aas: <{xml_namespace}/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xs: <http://www.w3.org/2001/XMLSchema#> .
+prefixes:
+{I}aas: {xml_namespace}
+{I}owl: http://www.w3.org/2002/07/owl#
+{I}rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+{I}rdfs: http://www.w3.org/2000/01/rdf-schema#
+{I}sh: http://www.w3.org/ns/shacl#
+{I}xsd: http://www.w3.org/2001/XMLSchema#
+imports:
+{I}- linkml:types
+default_prefix: aas""")
 
-# Metadata
-<{xml_namespace}/> a owl:Ontology ;
-    owl:imports <http://datashapes.org/dash> ;
-    owl:imports sh: ;
-    sh:declare [
-        a sh:PrefixDeclaration ;
-        sh:namespace "{xml_namespace}/"^^xs:anyURI ;
-        sh:prefix "aas"^^xs:string ;
-    ] ;
-."""
-    )
-
-    blocks = [preamble]  # type: List[Stripped]
+    blocks = []  # type: List[Stripped]
 
     constraints_by_class, some_errors = infer_for_schema.infer_constraints_by_class(
         symbol_table=symbol_table
@@ -411,7 +399,7 @@ def generate(
         ):
             if our_type.is_implementation_specific:
                 implementation_key = specific_implementations.ImplementationKey(
-                    f"shacl/{our_type.name}/shape.ttl"
+                    f"linkml/{our_type.name}.yaml"
                 )
 
                 implementation = spec_impls.get(implementation_key, None)
@@ -446,4 +434,39 @@ def generate(
     if len(errors) > 0:
         return None, errors
 
-    return Stripped("\n\n".join(blocks)), None
+    classes = "\n\n".join([textwrap.indent(b, I) for b in blocks])
+    return Stripped(f"{preamble}\n\nclasses:\n{classes}"), None
+
+@ensure(lambda result: (result[0] is not None) ^ (result[1] is not None))
+def _generate_summary(
+    description: intermediate.DescriptionUnion,
+) -> Tuple[Optional[str], Optional[Error]]:
+    """Generate the comment text based on the summary in the description."""
+    renderer = rdf_shacl_description.Renderer()
+    tokens, errors = renderer.transform(description.summary)
+
+    if errors is not None:
+        return None, Error(
+            description.parsed.node,
+            "Failed to generate the description comment",
+            [Error(description.parsed.node, message) for message in errors],
+        )
+
+    assert tokens is not None
+
+    tokens = rdf_shacl_description.without_redundant_breaks(tokens=tokens)
+
+    parts = []  # type: List[str]
+    for token in tokens:
+        if isinstance(token, rdf_shacl_description.TokenText):
+            parts.append(token.content)
+        elif isinstance(token, rdf_shacl_description.TokenLineBreak):
+            parts.append("\n")
+        elif isinstance(token, rdf_shacl_description.TokenParagraphBreak):
+            parts.append("\n\n")
+        else:
+            assert_never(token)
+
+    result = "".join(parts)
+
+    return result, None

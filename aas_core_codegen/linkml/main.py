@@ -4,8 +4,7 @@ import pathlib
 from typing import TextIO
 
 import aas_core_codegen
-import aas_core_codegen.linkml.rdf
-import aas_core_codegen.linkml.shacl
+import aas_core_codegen.linkml.linkml
 from aas_core_codegen import run
 from aas_core_codegen.linkml import common as rdf_shacl_common
 
@@ -46,9 +45,9 @@ def execute(context: run.Context, stdout: TextIO, stderr: TextIO) -> int:
 
     # endregion
 
-    # region SHACL schema
+    # region LinkML schema
 
-    shacl_code, errors = aas_core_codegen.linkml.shacl.generate(
+    linkml_code, errors = aas_core_codegen.linkml.linkml.generate(
         symbol_table=context.symbol_table,
         our_type_to_rdfs_range=our_type_to_rdfs_range,
         spec_impls=context.spec_impls,
@@ -56,21 +55,21 @@ def execute(context: run.Context, stdout: TextIO, stderr: TextIO) -> int:
 
     if errors is not None:
         run.write_error_report(
-            message=f"Failed to generate the SHACL schema "
+            message=f"Failed to generate the LinkML schema "
             f"based on {context.model_path}",
             errors=[context.lineno_columner.error_message(error) for error in errors],
             stderr=stderr,
         )
         return 1
 
-    assert shacl_code is not None
+    assert linkml_code is not None
 
-    pth = context.output_dir / "shacl-schema.ttl"
+    pth = context.output_dir / "aas-linkml.yaml"
     try:
-        pth.write_text(shacl_code, encoding="utf-8")
+        pth.write_text(linkml_code, encoding="utf-8")
     except Exception as exception:
         run.write_error_report(
-            message=f"Failed to write the SHACL schema to {pth}",
+            message=f"Failed to write the LinkML schema to {pth}",
             errors=[str(exception)],
             stderr=stderr,
         )
