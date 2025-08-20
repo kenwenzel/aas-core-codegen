@@ -154,7 +154,7 @@ PRIMITIVE_MAP = {
     intermediate.PrimitiveType.INT: "long",
     intermediate.PrimitiveType.FLOAT: "double",
     intermediate.PrimitiveType.STR: "string",
-    intermediate.PrimitiveType.BYTEARRAY: "base64Binary",
+    intermediate.PrimitiveType.BYTEARRAY: "Base64Binary",
 }
 
 

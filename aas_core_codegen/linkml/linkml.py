@@ -350,15 +350,18 @@ default_prefix: aas
 
 types:
 {I}LangString:
-{II}name: LangString
 {II}description: String with a language tag.
 {II}from_schema: rdf
 {II}exact_mappings:
 {III}- rdf:PlainLiteral
 {II}base: rdf:langString
-{II}uri: rdf:langString""")
+{II}uri: rdf:langString
 
-    blocks = []  # type: List[Stripped]
+{I}Base64Binary:
+{II}description: Base-64 encoded binary data
+{II}from_schema: xsd
+{II}base: xsd:base64Binary
+{II}uri: xsd:base64Binary""")
 
     constraints_by_class, some_errors = infer_for_schema.infer_constraints_by_class(
         symbol_table=symbol_table
@@ -378,6 +381,9 @@ types:
 
     assert constraints_by_class is not None
 
+    classes = []  # type: List[Stripped]
+    enums = []
+
     for our_type in sorted(
         symbol_table.our_types,
         key=lambda another_our_type: rdf_shacl_naming.class_name(another_our_type.name),
@@ -392,8 +398,13 @@ types:
         block: Optional[Stripped]
 
         if isinstance(our_type, intermediate.Enumeration):
-            continue
-
+            enum = our_type
+            values = "\n".join([f"{III}{rdf_shacl_naming.enumeration_literal(v.name)}:" for v in enum.literals])
+            enums.append(Stripped(
+                f"{rdf_shacl_naming.class_name(enum.name)}:" +
+                f"\n{II}permissible_values:" +
+                f"\n{values}"
+            ))
         elif isinstance(our_type, intermediate.ConstrainedPrimitive):
             # NOTE (mristin, 2022-02-11):
             # We in-line the constraints from the constrained primitives directly in the
@@ -420,7 +431,7 @@ types:
                         )
                     )
                 else:
-                    blocks.append(implementation)
+                    classes.append(implementation)
 
             else:
                 block, error = _define_for_class(
@@ -434,15 +445,21 @@ types:
                     errors.append(error)
                 else:
                     assert block is not None
-                    blocks.append(block)
+                    classes.append(block)
         else:
             assert_never(our_type)
 
     if len(errors) > 0:
         return None, errors
 
-    classes = "\n\n".join([textwrap.indent(b, I) for b in blocks])
-    return Stripped(f"{preamble}\n\nclasses:\n{classes}"), None
+    classesStr = "classes:\n" + "\n\n".join([textwrap.indent(c, I) for c in classes])
+    enumsStr = "\nenums:\n" + "\n\n".join([textwrap.indent(e, I) for e in enums])
+    return Stripped(f"""\
+{preamble}
+
+{classesStr}\
+{enumsStr if enums else ""}\
+"""), None
 
 @ensure(lambda result: (result[0] is not None) ^ (result[1] is not None))
 def _generate_summary(
