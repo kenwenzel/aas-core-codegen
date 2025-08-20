@@ -337,7 +337,7 @@ def generate(
 id: {xml_namespace}
 name: aas
 prefixes:
-{I}aas: {xml_namespace}
+{I}aas: {xml_namespace}/
 {I}owl: http://www.w3.org/2002/07/owl#
 {I}rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 {I}rdfs: http://www.w3.org/2000/01/rdf-schema#
@@ -350,17 +350,13 @@ default_prefix: aas
 
 types:
 {I}LangString:
-{II}description: String with a language tag.
-{II}from_schema: rdf
-{II}exact_mappings:
-{III}- rdf:PlainLiteral
-{II}base: rdf:langString
+{II}base: str
 {II}uri: rdf:langString
+{II}description: String with a language tag.
 
 {I}Base64Binary:
-{II}description: Base-64 encoded binary data
-{II}from_schema: xsd
-{II}base: xsd:base64Binary
+{II}description: Base64-encoded binary data. Maps to the XML Schema datatype xsd:base64Binary.
+{II}base: str
 {II}uri: xsd:base64Binary""")
 
     constraints_by_class, some_errors = infer_for_schema.infer_constraints_by_class(
