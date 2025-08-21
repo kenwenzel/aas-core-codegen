@@ -1,0 +1,837 @@
+id: https://admin-shell.io/aas/3/0/RC02
+name: aas
+prefixes:
+    aas: https://admin-shell.io/aas/3/0/RC02/
+    owl: http://www.w3.org/2002/07/owl#
+    rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+    rdfs: http://www.w3.org/2000/01/rdf-schema#
+    sh: http://www.w3.org/ns/shacl#
+    xsd: http://www.w3.org/2001/XMLSchema#
+    linkml: https://w3id.org/linkml/
+imports:
+    - linkml:types
+default_prefix: aas
+
+types:
+    LangString:
+        base: str
+        uri: rdf:langString
+        description: String with a language tag.
+
+    Base64Binary:
+        description: Base64-encoded binary data. Maps to the XML Schema datatype xsd:base64Binary.
+        base: str
+        uri: xsd:base64Binary
+
+classes:
+    AdministrativeInformation:
+        description: "Administrative meta-information for an element like version information."
+        is_a: HasDataSpecification
+        attributes:
+            revision:
+                description: "Revision of the element."
+                range: string
+            version:
+                description: "Version of the element."
+                range: string
+
+    AnnotatedRelationshipElement:
+        description: "An annotated relationship element is a relationship element that can be annotated with additional data elements."
+        is_a: RelationshipElement
+        attributes:
+            annotations:
+                description: "A data element that represents an annotation that holds for the relationship between the two elements"
+                range: DataElement
+                multivalued: true
+
+    AssetAdministrationShell:
+        description: "An asset administration shell."
+        mixins:
+                - Identifiable
+                - HasDataSpecification
+        attributes:
+            assetInformation:
+                description: "Meta-information about the asset the AAS is representing."
+                range: AssetInformation
+                required: true
+            derivedFrom:
+                description: "The reference to the AAS the AAS was derived from."
+                range: Reference
+            submodels:
+                description: "References to submodels of the AAS."
+                range: Reference
+                multivalued: true
+
+    AssetInformation:
+        description: "In 'AssetInformation' identifying meta data of the asset that is represented by an AAS is defined."
+        attributes:
+            assetKind:
+                description: "Denotes whether the Asset is of kind 'Type' or 'Instance'."
+                range: AssetKind
+                required: true
+            defaultThumbnail:
+                description: "Thumbnail of the asset represented by the Asset Administration Shell."
+                range: Resource
+            globalAssetId:
+                description: "Global identifier of the asset the AAS is representing."
+                range: Reference
+            specificAssetIds:
+                description: "Additional domain-specific, typically proprietary identifier for the asset like e.g., serial number etc."
+                range: SpecificAssetId
+                multivalued: true
+
+    BasicEventElement:
+        description: "A basic event element."
+        is_a: EventElement
+        attributes:
+            direction:
+                description: "Direction of event."
+                range: Direction
+                required: true
+            lastUpdate:
+                description: "Timestamp in UTC, when the last event was received (input direction) or sent (output direction)."
+                range: string
+                pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$"
+            maxInterval:
+                description: "For input direction: not applicable."
+                range: string
+                pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$"
+            messageBroker:
+                description: "Information, which outer message infrastructure shall handle messages for the 'EventElement'. Refers to a 'Submodel', 'SubmodelElementList', 'SubmodelElementCollection' or 'Entity', which contains 'DataElement''s describing the proprietary specification for the message broker."
+                range: Reference
+            messageTopic:
+                description: "Information for the outer message infrastructure for scheduling the event to the respective communication channel."
+                range: string
+            minInterval:
+                description: "For input direction, reports on the maximum frequency, the software entity behind the respective Referable can handle input events."
+                range: string
+                pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$"
+            observed:
+                description: "Reference to the 'Referable', which defines the scope of the event. Can be 'AssetAdministrationShell', 'Submodel', or 'SubmodelElement'."
+                range: Reference
+                required: true
+            state:
+                description: "State of event."
+                range: StateOfEvent
+                required: true
+
+    Blob:
+        description: "A 'Blob' is a data element that represents a file that is contained with its source code in the value attribute."
+        is_a: DataElement
+        attributes:
+            contentType:
+                description: "Content type of the content of the 'Blob'."
+                range: string
+                required: true
+                pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$"
+            value:
+                description: "The value of the 'Blob' instance of a blob data element."
+                range: Base64Binary
+
+    Capability:
+        description: "A capability is the implementation-independent description of the potential of an asset to achieve a certain effect in the physical or virtual world."
+        is_a: SubmodelElement
+
+    ConceptDescription:
+        description: "The semantics of a property or other elements that may have a semantic description is defined by a concept description."
+        mixins:
+                - Identifiable
+                - HasDataSpecification
+        attributes:
+            isCaseOf:
+                description: "Reference to an external definition the concept is compatible to or was derived from."
+                range: Reference
+                multivalued: true
+
+    DataElement:
+        abstract: true
+        description: "A data element is a submodel element that is not further composed out of other submodel elements."
+        is_a: SubmodelElement
+
+    DataSpecificationContent:
+        abstract: true
+        description: "Data specification content is part of a data specification template and defines which additional attributes shall be added to the element instance that references the data specification template and meta information about the template itself."
+
+    DataSpecificationIec61360:
+        description: "Content of data specification template for concept descriptions for properties, values and value lists conformant to IEC 61360."
+        is_a: DataSpecificationContent
+        attributes:
+            dataType:
+                description: "Data Type"
+                range: DataTypeIec61360
+            definition:
+                description: "Definition in different languages"
+                range: LangString
+                multivalued: true
+            levelType:
+                description: "Set of levels."
+                range: LevelType
+            preferredName:
+                description: "Preferred name"
+                range: LangString
+                required: true
+                multivalued: true
+            shortName:
+                description: "Short name"
+                range: LangString
+                multivalued: true
+            sourceOfDefinition:
+                description: "Source of definition"
+                range: string
+            symbol:
+                description: "Symbol"
+                range: string
+            unit:
+                description: "Unit"
+                range: string
+            unitId:
+                description: "Unique unit id"
+                range: Reference
+            value:
+                description: "Value"
+                range: string
+            valueFormat:
+                description: "Value Format"
+                range: string
+            valueList:
+                description: "List of allowed values"
+                range: ValueList
+
+    DataSpecificationPhysicalUnit:
+        is_a: DataSpecificationContent
+        attributes:
+            conversionFactor:
+                description: "Conversion factor"
+                range: string
+            definition:
+                description: "Definition in different languages"
+                range: LangString
+                required: true
+                multivalued: true
+            dinNotation:
+                description: "Notation of physical unit conformant to DIN"
+                range: string
+            eceCode:
+                description: "Code of physical unit conformant to ECE"
+                range: string
+            eceName:
+                description: "Name of physical unit conformant to ECE"
+                range: string
+            nistName:
+                description: "Name of NIST physical unit"
+                range: string
+            registrationAuthorityId:
+                description: "Registration authority ID"
+                range: string
+            siName:
+                description: "Name of SI physical unit"
+                range: string
+            siNotation:
+                description: "Notation of SI physical unit"
+                range: string
+            sourceOfDefinition:
+                description: "Source of definition"
+                range: string
+            supplier:
+                description: "Supplier"
+                range: string
+            unitName:
+                description: "Name of the physical unit"
+                range: string
+                required: true
+            unitSymbol:
+                description: "Symbol for the physical unit"
+                range: string
+                required: true
+
+    EmbeddedDataSpecification:
+        description: "Embed the content of a data specification."
+        attributes:
+            dataSpecification:
+                description: "Reference to the data specification"
+                range: Reference
+                required: true
+            dataSpecificationContent:
+                description: "Actual content of the data specification"
+                range: DataSpecificationContent
+                required: true
+
+    Entity:
+        description: "An entity is a submodel element that is used to model entities."
+        is_a: SubmodelElement
+        attributes:
+            entityType:
+                description: "Describes whether the entity is a co-managed entity or a self-managed entity."
+                range: EntityType
+                required: true
+            globalAssetId:
+                description: "Global identifier of the asset the entity is representing."
+                range: Reference
+            specificAssetId:
+                description: "Reference to a specific asset ID representing a supplementary identifier of the asset represented by the Asset Administration Shell."
+                range: SpecificAssetId
+            statements:
+                description: "Describes statements applicable to the entity by a set of submodel elements, typically with a qualified value."
+                range: SubmodelElement
+                multivalued: true
+
+    Environment:
+        description: "Container for the sets of different identifiables."
+        attributes:
+            assetAdministrationShells:
+                description: "Asset administration shell"
+                range: AssetAdministrationShell
+                multivalued: true
+            conceptDescriptions:
+                description: "Concept description"
+                range: ConceptDescription
+                multivalued: true
+            submodels:
+                description: "Submodel"
+                range: Submodel
+                multivalued: true
+
+    EventElement:
+        abstract: true
+        description: "An event element."
+        is_a: SubmodelElement
+
+    EventPayload:
+        description: "Defines the necessary information of an event instance sent out or received."
+        attributes:
+            observableReference:
+                description: "Reference to the referable, which defines the scope of the event."
+                range: Reference
+                required: true
+            observableSemanticId:
+                description: "'semanticId' of the referable which defines the scope of the event, if available."
+                range: Reference
+            payload:
+                description: "Event specific payload."
+                range: string
+            source:
+                description: "Reference to the source event element, including identification of 'AssetAdministrationShell', 'Submodel', 'SubmodelElement''s."
+                range: Reference
+                required: true
+            sourceSemanticId:
+                description: "'semanticId' of the source event element, if available"
+                range: Reference
+            subjectId:
+                description: "Subject, who/which initiated the creation."
+                range: Reference
+            timeStamp:
+                description: "Timestamp in UTC, when this event was triggered."
+                range: string
+                required: true
+                pattern: "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$"
+            topic:
+                description: "Information for the outer message infrastructure for scheduling the event to the respective communication channel."
+                range: string
+
+    Extension:
+        description: "Single extension of an element."
+        is_a: HasSemantics
+        attributes:
+            name:
+                description: "Name of the extension."
+                range: string
+                required: true
+            refersTo:
+                description: "Reference to an element the extension refers to."
+                range: Reference
+            value:
+                description: "Value of the extension"
+                range: string
+            valueType:
+                description: "Type of the value of the extension."
+                range: DataTypeDefXsd
+
+    File:
+        description: "A File is a data element that represents an address to a file (a locator)."
+        is_a: DataElement
+        attributes:
+            contentType:
+                description: "Content type of the content of the file."
+                range: string
+                required: true
+                pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$"
+            value:
+                description: "Path and name of the referenced file (with file extension)."
+                range: string
+                pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
+
+    HasDataSpecification:
+        abstract: true
+        description: "Element that can be extended by using data specification templates."
+        attributes:
+            embeddedDataSpecifications:
+                description: "Embedded data specification."
+                range: EmbeddedDataSpecification
+                multivalued: true
+
+    HasExtensions:
+        abstract: true
+        description: "Element that can be extended by proprietary extensions."
+        attributes:
+            extensions:
+                description: "An extension of the element."
+                range: Extension
+                multivalued: true
+
+    HasKind:
+        abstract: true
+        description: "An element with a kind is an element that can either represent a template or an instance."
+        attributes:
+            kind:
+                description: "Kind of the element: either type or instance."
+                range: ModelingKind
+
+    HasSemantics:
+        abstract: true
+        description: "Element that can have a semantic definition plus some supplemental semantic definitions."
+        attributes:
+            semanticId:
+                description: "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element."
+                range: Reference
+            supplementalSemanticIds:
+                description: "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element."
+                range: Reference
+                multivalued: true
+
+    Identifiable:
+        abstract: true
+        description: "An element that has a globally unique identifier."
+        is_a: Referable
+        attributes:
+            administration:
+                description: "Administrative information of an identifiable element."
+                range: AdministrativeInformation
+            id:
+                description: "The globally unique identification of the element."
+                range: string
+                required: true
+
+    Key:
+        description: "A key is a reference to an element by its ID."
+        attributes:
+            type:
+                description: "Denotes which kind of entity is referenced."
+                range: KeyTypes
+                required: true
+            value:
+                description: "The key value, for example an IRDI or an URI"
+                range: string
+                required: true
+
+    MultiLanguageProperty:
+        description: "A property is a data element that has a multi-language value."
+        is_a: DataElement
+        attributes:
+            value:
+                description: "The value of the property instance."
+                range: LangString
+                multivalued: true
+            valueId:
+                description: "Reference to the global unique ID of a coded value."
+                range: Reference
+
+    Operation:
+        description: "An operation is a submodel element with input and output variables."
+        is_a: SubmodelElement
+        attributes:
+            inoutputVariables:
+                description: "Parameter that is input and output of the operation."
+                range: OperationVariable
+                multivalued: true
+            inputVariables:
+                description: "Input parameter of the operation."
+                range: OperationVariable
+                multivalued: true
+            outputVariables:
+                description: "Output parameter of the operation."
+                range: OperationVariable
+                multivalued: true
+
+    OperationVariable:
+        description: "The value of an operation variable is a submodel element that is used as input and/or output variable of an operation."
+        attributes:
+            value:
+                description: "Describes an argument or result of an operation via a submodel element"
+                range: SubmodelElement
+                required: true
+
+    Property:
+        description: "A property is a data element that has a single value."
+        is_a: DataElement
+        attributes:
+            value:
+                description: "The value of the property instance."
+                range: string
+            valueId:
+                description: "Reference to the global unique ID of a coded value."
+                range: Reference
+            valueType:
+                description: "Data type of the value"
+                range: DataTypeDefXsd
+                required: true
+
+    Qualifiable:
+        abstract: true
+        description: "The value of a qualifiable element may be further qualified by one or more qualifiers."
+        attributes:
+            qualifiers:
+                description: "Additional qualification of a qualifiable element."
+                range: Qualifier
+                multivalued: true
+
+    Qualifier:
+        description: "A qualifier is a type-value-pair that makes additional statements w.r.t. the value of the element."
+        is_a: HasSemantics
+        attributes:
+            kind:
+                description: "The qualifier kind describes the kind of the qualifier that is applied to the element."
+                range: QualifierKind
+            type:
+                description: "The qualifier type describes the type of the qualifier that is applied to the element."
+                range: string
+                required: true
+            value:
+                description: "The qualifier value is the value of the qualifier."
+                range: string
+            valueId:
+                description: "Reference to the global unique ID of a coded value."
+                range: Reference
+            valueType:
+                description: "Data type of the qualifier value."
+                range: DataTypeDefXsd
+                required: true
+
+    Range:
+        description: "A range data element is a data element that defines a range with min and max."
+        is_a: DataElement
+        attributes:
+            max:
+                description: "The maximum value of the range."
+                range: string
+            min:
+                description: "The minimum value of the range."
+                range: string
+            valueType:
+                description: "Data type of the min und max"
+                range: DataTypeDefXsd
+                required: true
+
+    Referable:
+        abstract: true
+        description: "An element that is referable by its 'idShort'."
+        is_a: HasExtensions
+        attributes:
+            category:
+                description: "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints."
+                range: string
+            checksum:
+                description: "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed."
+                range: string
+            description:
+                description: "Description or comments on the element."
+                range: LangString
+                multivalued: true
+            displayName:
+                description: "Display name. Can be provided in several languages."
+                range: LangString
+                multivalued: true
+            idShort:
+                description: "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space."
+                range: string
+                pattern: "^[a-zA-Z][a-zA-Z0-9_]+$"
+
+    Reference:
+        description: "Reference to either a model element of the same or another AAS or to an external entity."
+        attributes:
+            keys:
+                description: "Unique references in their name space."
+                range: Key
+                required: true
+                multivalued: true
+            referredSemanticId:
+                description: "'semanticId' of the referenced model element ('type' = 'ModelReference')."
+                range: Reference
+            type:
+                description: "Type of the reference."
+                range: ReferenceTypes
+                required: true
+
+    ReferenceElement:
+        description: "A reference element is a data element that defines a logical reference to another element within the same or another AAS or a reference to an external object or entity."
+        is_a: DataElement
+        attributes:
+            value:
+                description: "Global reference to an external object or entity or a logical reference to another element within the same or another AAS (i.e. a model reference to a Referable)."
+                range: Reference
+
+    RelationshipElement:
+        description: "A relationship element is used to define a relationship between two elements being either referable (model reference) or external (global reference)."
+        is_a: SubmodelElement
+        attributes:
+            first:
+                description: "Reference to the first element in the relationship taking the role of the subject."
+                range: Reference
+                required: true
+            second:
+                description: "Reference to the second element in the relationship taking the role of the object."
+                range: Reference
+                required: true
+
+    Resource:
+        description: "Resource represents an address to a file (a locator). The value is an URI that can represent an absolute or relative path"
+        attributes:
+            contentType:
+                description: "Content type of the content of the file."
+                range: string
+                pattern: "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$"
+            path:
+                description: "Path and name of the resource (with file extension)."
+                range: string
+                required: true
+                pattern: "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$"
+
+    SpecificAssetId:
+        description: "A specific asset ID describes a generic supplementary identifying attribute of the asset."
+        is_a: HasSemantics
+        attributes:
+            externalSubjectId:
+                description: "The (external) subject the key belongs to or has meaning to."
+                range: Reference
+                required: true
+            name:
+                description: "Name of the identifier"
+                range: string
+                required: true
+            value:
+                description: "The value of the specific asset identifier with the corresponding name."
+                range: string
+                required: true
+
+    Submodel:
+        description: "A submodel defines a specific aspect of the asset represented by the AAS."
+        mixins:
+                - Identifiable
+                - HasKind
+                - HasSemantics
+                - Qualifiable
+                - HasDataSpecification
+        attributes:
+            submodelElements:
+                description: "A submodel consists of zero or more submodel elements."
+                range: SubmodelElement
+                multivalued: true
+
+    SubmodelElement:
+        abstract: true
+        description: "A submodel element is an element suitable for the description and differentiation of assets."
+        mixins:
+                - Referable
+                - HasKind
+                - HasSemantics
+                - Qualifiable
+                - HasDataSpecification
+
+    SubmodelElementCollection:
+        description: "A submodel element collection is a kind of struct, i.e. a a logical encapsulation of multiple named values. It has a fixed number of submodel elements."
+        is_a: SubmodelElement
+        attributes:
+            value:
+                description: "Submodel element contained in the collection."
+                range: SubmodelElement
+                multivalued: true
+
+    SubmodelElementList:
+        description: "A submodel element list is an ordered list of submodel elements."
+        is_a: SubmodelElement
+        attributes:
+            orderRelevant:
+                description: "Defines whether order in list is relevant. If 'orderRelevant' = False then the list is representing a set or a bag."
+                range: boolean
+            semanticIdListElement:
+                description: "Semantic ID the submodel elements contained in the list match to."
+                range: Reference
+            typeValueListElement:
+                description: "The submodel element type of the submodel elements contained in the list."
+                range: AasSubmodelElements
+                required: true
+            value:
+                description: "Submodel element contained in the list."
+                range: SubmodelElement
+                multivalued: true
+            valueTypeListElement:
+                description: "The value type of the submodel element contained in the list."
+                range: DataTypeDefXsd
+
+    ValueList:
+        description: "A set of value reference pairs."
+        attributes:
+            valueReferencePairs:
+                description: "A pair of a value together with its global unique id."
+                range: ValueReferencePair
+                required: true
+                multivalued: true
+
+    ValueReferencePair:
+        description: "A value reference pair within a value list. Each value has a global unique id defining its semantic."
+        attributes:
+            value:
+                description: "The value of the referenced concept definition of the value in valueId."
+                range: string
+                required: true
+            valueId:
+                description: "Global unique id of the value."
+                range: Reference
+                required: true
+enums:
+    AasSubmodelElements:
+            permissible_values:
+                AnnotatedRelationshipElement:
+                BasicEventElement:
+                Blob:
+                Capability:
+                DataElement:
+                Entity:
+                EventElement:
+                File:
+                MultiLanguageProperty:
+                Operation:
+                Property:
+                Range:
+                ReferenceElement:
+                RelationshipElement:
+                SubmodelElement:
+                SubmodelElementList:
+                SubmodelElementCollection:
+
+    AssetKind:
+            permissible_values:
+                Type:
+                Instance:
+
+    DataTypeDefXsd:
+            permissible_values:
+                AnyUri:
+                Base64Binary:
+                Boolean:
+                Date:
+                DateTime:
+                DateTimeStamp:
+                Decimal:
+                Double:
+                Duration:
+                Float:
+                GDay:
+                GMonth:
+                GMonthDay:
+                GYear:
+                GYearMonth:
+                HexBinary:
+                String:
+                Time:
+                DayTimeDuration:
+                YearMonthDuration:
+                Integer:
+                Long:
+                Int:
+                Short:
+                Byte:
+                NonNegativeInteger:
+                PositiveInteger:
+                UnsignedLong:
+                UnsignedInt:
+                UnsignedShort:
+                UnsignedByte:
+                NonPositiveInteger:
+                NegativeInteger:
+
+    DataTypeIec61360:
+            permissible_values:
+                Date:
+                String:
+                StringTranslatable:
+                IntegerMeasure:
+                IntegerCount:
+                IntegerCurrency:
+                RealMeasure:
+                RealCount:
+                RealCurrency:
+                Boolean:
+                Iri:
+                Irdi:
+                Rational:
+                RationalMeasure:
+                Time:
+                Timestamp:
+                File:
+                Html:
+                Blob:
+
+    Direction:
+            permissible_values:
+                Input:
+                Output:
+
+    EntityType:
+            permissible_values:
+                CoManagedEntity:
+                SelfManagedEntity:
+
+    KeyTypes:
+            permissible_values:
+                FragmentReference:
+                GlobalReference:
+                AnnotatedRelationshipElement:
+                AssetAdministrationShell:
+                BasicEventElement:
+                Blob:
+                Capability:
+                ConceptDescription:
+                Identifiable:
+                DataElement:
+                Entity:
+                EventElement:
+                File:
+                MultiLanguageProperty:
+                Operation:
+                Property:
+                Range:
+                ReferenceElement:
+                Referable:
+                RelationshipElement:
+                Submodel:
+                SubmodelElement:
+                SubmodelElementList:
+                SubmodelElementCollection:
+
+    LevelType:
+            permissible_values:
+                Min:
+                Max:
+                Nom:
+                Typ:
+
+    ModelingKind:
+            permissible_values:
+                Template:
+                Instance:
+
+    QualifierKind:
+            permissible_values:
+                ValueQualifier:
+                ConceptQualifier:
+                TemplateQualifier:
+
+    ReferenceTypes:
+            permissible_values:
+                GlobalReference:
+                ModelReference:
+
+    StateOfEvent:
+            permissible_values:
+                On:
+                Off:

@@ -1,0 +1,5 @@
+# aas 
+
+None
+
+URI: https://admin-shell.io/aas/3/0/RC02
