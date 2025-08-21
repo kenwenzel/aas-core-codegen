@@ -19,7 +19,7 @@ from aas_core_codegen.linkml.common import INDENT as I, INDENT2 as II, INDENT3 a
 
 @require(lambda prop, cls: id(prop) in cls.property_id_set)
 @ensure(lambda result: (result[0] is not None) ^ (result[1] is not None))
-def _define_property_shape(
+def _define_slot(
     prop: intermediate.Property,
     cls: intermediate.ClassUnion,
     xml_namespace: Stripped,
@@ -252,7 +252,7 @@ def _define_property_shape(
     or not cls.is_implementation_specific
 )
 # fmt: on
-def _define_for_class(
+def _define_class(
     cls: intermediate.ClassUnion,
     our_type_to_rdfs_range: rdf_shacl_common.OurTypeToRdfsRange,
     xml_namespace: Stripped,
@@ -262,8 +262,10 @@ def _define_for_class(
     prop_blocks = []  # type: List[Stripped]
     errors = []  # type: List[Error]
 
-    for prop in cls.properties:
-        prop_block, error = _define_property_shape(
+    for _, prop in sorted(
+        (rdf_shacl_naming.property_name(prop.name), prop) for prop in cls.properties
+    ):
+        prop_block, error = _define_slot(
             prop=prop,
             cls=cls,
             xml_namespace=xml_namespace,
@@ -430,7 +432,7 @@ types:
                     classes.append(implementation)
 
             else:
-                block, error = _define_for_class(
+                block, error = _define_class(
                     cls=our_type,
                     our_type_to_rdfs_range=our_type_to_rdfs_range,
                     xml_namespace=xml_namespace,
