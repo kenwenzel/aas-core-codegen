@@ -282,6 +282,10 @@ def _define_class(
     writer = io.StringIO()
     writer.write(f"{cls_name}:")
 
+    # mark class as abstract
+    if isinstance(cls, intermediate.AbstractClass):
+        writer.write(textwrap.indent("\nabstract: true", I))
+
     if cls.description:
         summary, error = _generate_summary(cls.description)
         if error is not None:
@@ -301,10 +305,6 @@ def _define_class(
             for inheritance in cls.inheritances:
                 superclass_name = rdf_shacl_naming.class_name(inheritance.name)
                 writer.write(f"\n{III}- {superclass_name}")
-
-    # if isinstance(cls, intermediate.AbstractClass):
-        # writer.write("\n")
-        # mark as abstract class
 
     if prop_blocks:
         writer.write(f"\n{I}attributes:")
