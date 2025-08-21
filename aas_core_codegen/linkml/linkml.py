@@ -52,8 +52,18 @@ def _define_slot(
 
     stmts = []  # type: List[Stripped]
 
+    summary, error = _generate_summary(prop.description)
+    if error is not None:
+        return None, error
+
+    assert summary is not None
+
+    if summary:
+        stmts.append(Stripped(f"description: \"{summary.strip()}\""))
+
     # Resolve the type annotation to the actual value, regardless if the property is
     # mandatory or optional
+    is_optional = isinstance(prop.type_annotation, intermediate.OptionalTypeAnnotation)
     type_anno = intermediate.beneath_optional(prop.type_annotation)
 
     prop_name = rdf_shacl_naming.property_name(prop.name)
@@ -70,30 +80,14 @@ def _define_slot(
     min_count = None  # type: Optional[int]
     max_count = None  # type: Optional[int]
 
-    if isinstance(prop.type_annotation, intermediate.OptionalTypeAnnotation):
-        if isinstance(type_anno, intermediate.ListTypeAnnotation):
-            min_count = 0
-            max_count = None
-
-        elif isinstance(
-            type_anno,
-            (intermediate.OurTypeAnnotation, intermediate.PrimitiveTypeAnnotation),
-        ):
-            min_count = 0
-            max_count = 1
-
-        else:
-            assert_never(type_anno)
-
-    elif isinstance(prop.type_annotation, intermediate.ListTypeAnnotation):
+    if isinstance(type_anno, intermediate.ListTypeAnnotation):
         min_count = 0
         max_count = None
-
     elif isinstance(
-        prop.type_annotation,
+        type_anno,
         (intermediate.OurTypeAnnotation, intermediate.PrimitiveTypeAnnotation),
     ):
-        min_count = 1
+        min_count = 0 if is_optional else 1
         max_count = 1
 
     else:
@@ -128,9 +122,7 @@ def _define_slot(
                 # (*i.e.*, nullable and non-nullable properties). Hence, we simply make
                 # the optional properties as minCount 0 even though we inferred that
                 # the minimum length is 1 in case that the property is null.
-                if len_constraint.min_value == 1 and isinstance(
-                    prop.type_annotation, intermediate.OptionalTypeAnnotation
-                ):
+                if len_constraint.min_value == 1 and is_optional:
                     min_count = 0
 
                 else:
@@ -298,7 +290,7 @@ def _define_class(
         assert summary is not None
 
         if summary:
-            writer.write(textwrap.indent(f"\ndescription: {summary}", I))
+            writer.write(textwrap.indent(f"\ndescription: \"{summary}\"", I))
 
     if cls.inheritances:
         if len(cls.inheritances) == 1:
