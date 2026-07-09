@@ -689,6 +689,8 @@ classes:
                 required: true
 enums:
     AasSubmodelElements:
+            implements:
+                - owl:NamedIndividual
             permissible_values:
                 AnnotatedRelationshipElement:
                 BasicEventElement:

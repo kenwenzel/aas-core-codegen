@@ -1,0 +1,2350 @@
+@prefix aas: <https://admin-shell.io/aas/3/0/RC02/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://admin-shell.io/aas/3/0/RC02.owl.ttl> a owl:Ontology ;
+    rdfs:label "aas" .
+
+aas:AnnotatedRelationshipElement a owl:Class ;
+    rdfs:label "AnnotatedRelationshipElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:annotations ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataElement ;
+            owl:onProperty aas:annotations ],
+        aas:RelationshipElement ;
+    skos:definition "An annotated relationship element is a relationship element that can be annotated with additional data elements." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:BasicEventElement a owl:Class ;
+    rdfs:label "BasicEventElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ] ) ] ) ] ;
+            owl:onProperty aas:minInterval ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:lastUpdate ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:observed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:messageBroker ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:minInterval ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:state ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:messageBroker ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ] ) ] ) ] ;
+            owl:onProperty aas:maxInterval ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Direction ;
+            owl:onProperty aas:direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:messageBroker ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:lastUpdate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:maxInterval ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:observed ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:StateOfEvent ;
+            owl:onProperty aas:state ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ] ) ] ) ] ;
+            owl:onProperty aas:lastUpdate ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:messageTopic ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:messageTopic ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:messageTopic ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:maxInterval ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:minInterval ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:observed ],
+        aas:EventElement ;
+    skos:definition "A basic event element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Blob a owl:Class ;
+    rdfs:label "Blob" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:base64Binary ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ] ) ] ) ] ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:contentType ],
+        aas:DataElement ;
+    skos:definition "A 'Blob' is a data element that represents a file that is contained with its source code in the value attribute." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Capability a owl:Class ;
+    rdfs:label "Capability" ;
+    rdfs:subClassOf aas:SubmodelElement ;
+    skos:definition "A capability is the implementation-independent description of the potential of an asset to achieve a certain effect in the physical or virtual world." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:DataSpecificationIec61360 a owl:Class ;
+    rdfs:label "DataSpecificationIec61360" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueList ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:shortName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:LevelType ;
+            owl:onProperty aas:levelType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueFormat ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:levelType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:unit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueList ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:unit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:unitId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:unitId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:valueFormat ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:dataType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:unit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueFormat ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeIec61360 ;
+            owl:onProperty aas:dataType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:ValueList ;
+            owl:onProperty aas:valueList ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:unitId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:symbol ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:shortName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:preferredName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:levelType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:preferredName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:dataType ],
+        aas:DataSpecificationContent ;
+    skos:definition "Content of data specification template for concept descriptions for properties, values and value lists conformant to IEC 61360." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:DataSpecificationPhysicalUnit a owl:Class ;
+    rdfs:label "DataSpecificationPhysicalUnit" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:eceCode ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:registrationAuthorityId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:supplier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:siName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:eceCode ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:supplier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:conversionFactor ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:unitName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:registrationAuthorityId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:eceName ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:siName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:siName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:eceName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:unitName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:registrationAuthorityId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:dinNotation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:siNotation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:siNotation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:unitSymbol ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:unitSymbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:dinNotation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:nistName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:conversionFactor ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:dinNotation ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:eceCode ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:supplier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:nistName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:sourceOfDefinition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:siNotation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:unitName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:eceName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:unitSymbol ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:definition ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:conversionFactor ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:nistName ],
+        aas:DataSpecificationContent ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Entity a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:EntityType ;
+            owl:onProperty aas:entityType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:statements ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:globalAssetId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:entityType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:globalAssetId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:specificAssetId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:entityType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:SpecificAssetId ;
+            owl:onProperty aas:specificAssetId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:SubmodelElement ;
+            owl:onProperty aas:statements ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:specificAssetId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:globalAssetId ],
+        aas:SubmodelElement ;
+    skos:definition "An entity is a submodel element that is used to model entities." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Environment a owl:Class ;
+    rdfs:label "Environment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:submodels ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:conceptDescriptions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:AssetAdministrationShell ;
+            owl:onProperty aas:assetAdministrationShells ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:assetAdministrationShells ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Submodel ;
+            owl:onProperty aas:submodels ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:ConceptDescription ;
+            owl:onProperty aas:conceptDescriptions ] ;
+    skos:definition "Container for the sets of different identifiables." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:EventPayload a owl:Class ;
+    rdfs:label "EventPayload" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:observableReference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:source ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:timeStamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:payload ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:observableReference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:payload ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:payload ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:sourceSemanticId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:sourceSemanticId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:topic ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ] ) ] ) ] ;
+            owl:onProperty aas:timeStamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:subjectId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:observableReference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:topic ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:sourceSemanticId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:observableSemanticId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:subjectId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:timeStamp ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:observableSemanticId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:topic ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:subjectId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:observableSemanticId ] ;
+    skos:definition "Defines the necessary information of an event instance sent out or received." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:File a owl:Class ;
+    rdfs:label "File" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$" ] ) ] ) ] ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ] ) ] ) ] ;
+            owl:onProperty aas:contentType ],
+        aas:DataElement ;
+    skos:definition "A File is a data element that represents an address to a file (a locator)." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:MultiLanguageProperty a owl:Class ;
+    rdfs:label "MultiLanguageProperty" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:value ],
+        aas:DataElement ;
+    skos:definition "A property is a data element that has a multi-language value." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Operation a owl:Class ;
+    rdfs:label "Operation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:inputVariables ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:inoutputVariables ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:OperationVariable ;
+            owl:onProperty aas:outputVariables ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:outputVariables ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:OperationVariable ;
+            owl:onProperty aas:inoutputVariables ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:OperationVariable ;
+            owl:onProperty aas:inputVariables ],
+        aas:SubmodelElement ;
+    skos:definition "An operation is a submodel element with input and output variables." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Property a owl:Class ;
+    rdfs:label "Property" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeDefXsd ;
+            owl:onProperty aas:valueType ],
+        aas:DataElement ;
+    skos:definition "A property is a data element that has a single value." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Range a owl:Class ;
+    rdfs:label "Range" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:min ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:max ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:min ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:max ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:max ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeDefXsd ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:min ],
+        aas:DataElement ;
+    skos:definition "A range data element is a data element that defines a range with min and max." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ReferenceElement a owl:Class ;
+    rdfs:label "ReferenceElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        aas:DataElement ;
+    skos:definition "A reference element is a data element that defines a logical reference to another element within the same or another AAS or a reference to an external object or entity." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:SubmodelElementCollection a owl:Class ;
+    rdfs:label "SubmodelElementCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:SubmodelElement ;
+            owl:onProperty aas:value ],
+        aas:SubmodelElement ;
+    skos:definition "A submodel element collection is a kind of struct, i.e. a a logical encapsulation of multiple named values. It has a fixed number of submodel elements." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:SubmodelElementList a owl:Class ;
+    rdfs:label "SubmodelElementList" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeDefXsd ;
+            owl:onProperty aas:valueTypeListElement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueTypeListElement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:semanticIdListElement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueTypeListElement ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:AasSubmodelElements ;
+            owl:onProperty aas:typeValueListElement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:typeValueListElement ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:orderRelevant ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty aas:orderRelevant ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:semanticIdListElement ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:SubmodelElement ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:orderRelevant ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:typeValueListElement ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:semanticIdListElement ],
+        aas:SubmodelElement ;
+    skos:definition "A submodel element list is an ordered list of submodel elements." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+xsd:base64Binary a rdfs:Datatype .
+
+aas:AdministrativeInformation a owl:Class ;
+    rdfs:label "AdministrativeInformation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:revision ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:revision ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:revision ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:version ],
+        aas:HasDataSpecification ;
+    skos:definition "Administrative meta-information for an element like version information." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:AssetAdministrationShell a owl:Class ;
+    rdfs:label "AssetAdministrationShell" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:AssetInformation ;
+            owl:onProperty aas:assetInformation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:derivedFrom ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:derivedFrom ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:assetInformation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:submodels ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:assetInformation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:submodels ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:derivedFrom ],
+        aas:HasDataSpecification,
+        aas:Identifiable ;
+    skos:definition "An asset administration shell." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:AssetInformation a owl:Class ;
+    rdfs:label "AssetInformation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:assetKind ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:defaultThumbnail ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:specificAssetIds ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:SpecificAssetId ;
+            owl:onProperty aas:specificAssetIds ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:globalAssetId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:assetKind ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:globalAssetId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:globalAssetId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:AssetKind ;
+            owl:onProperty aas:assetKind ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:defaultThumbnail ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Resource ;
+            owl:onProperty aas:defaultThumbnail ] ;
+    skos:definition "In 'AssetInformation' identifying meta data of the asset that is represented by an AAS is defined." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ConceptDescription a owl:Class ;
+    rdfs:label "ConceptDescription" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:isCaseOf ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:isCaseOf ],
+        aas:HasDataSpecification,
+        aas:Identifiable ;
+    skos:definition "The semantics of a property or other elements that may have a semantic description is defined by a concept description." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:EmbeddedDataSpecification a owl:Class ;
+    rdfs:label "EmbeddedDataSpecification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:dataSpecification ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:dataSpecificationContent ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataSpecificationContent ;
+            owl:onProperty aas:dataSpecificationContent ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:dataSpecification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:dataSpecification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:dataSpecificationContent ] ;
+    skos:definition "Embed the content of a data specification." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:EventElement a owl:Class ;
+    rdfs:label "EventElement" ;
+    rdfs:subClassOf aas:SubmodelElement ;
+    skos:definition "An event element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Extension a owl:Class ;
+    rdfs:label "Extension" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeDefXsd ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:refersTo ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:refersTo ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:refersTo ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueType ],
+        aas:HasSemantics ;
+    skos:definition "Single extension of an element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:HasExtensions a owl:Class ;
+    rdfs:label "HasExtensions" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:extensions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Extension ;
+            owl:onProperty aas:extensions ] ;
+    skos:definition "Element that can be extended by proprietary extensions." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Key a owl:Class ;
+    rdfs:label "Key" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:KeyTypes ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:type ] ;
+    skos:definition "A key is a reference to an element by its ID." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Qualifier a owl:Class ;
+    rdfs:label "Qualifier" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:kind ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:kind ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:QualifierKind ;
+            owl:onProperty aas:kind ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:DataTypeDefXsd ;
+            owl:onProperty aas:valueType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:type ],
+        aas:HasSemantics ;
+    skos:definition "A qualifier is a type-value-pair that makes additional statements w.r.t. the value of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:RelationshipElement a owl:Class ;
+    rdfs:label "RelationshipElement" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:second ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:second ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:first ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:first ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:first ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:second ],
+        aas:SubmodelElement ;
+    skos:definition "A relationship element is used to define a relationship between two elements being either referable (model reference) or external (global reference)." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Resource a owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:path ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$" ] ) ] ) ] ;
+            owl:onProperty aas:path ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ] ) ] ) ] ;
+            owl:onProperty aas:contentType ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:path ] ;
+    skos:definition "Resource represents an address to a file (a locator). The value is an URI that can represent an absolute or relative path" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Submodel a owl:Class ;
+    rdfs:label "Submodel" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:SubmodelElement ;
+            owl:onProperty aas:submodelElements ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:submodelElements ],
+        aas:HasDataSpecification,
+        aas:HasKind,
+        aas:HasSemantics,
+        aas:Identifiable,
+        aas:Qualifiable ;
+    skos:definition "A submodel defines a specific aspect of the asset represented by the AAS." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ValueList a owl:Class ;
+    rdfs:label "ValueList" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:ValueReferencePair ;
+            owl:onProperty aas:valueReferencePairs ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:valueReferencePairs ] ;
+    skos:definition "A set of value reference pairs." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ValueReferencePair a owl:Class ;
+    rdfs:label "ValueReferencePair" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:valueId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ] ;
+    skos:definition "A value reference pair within a value list. Each value has a global unique id defining its semantic." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#AnnotatedRelationshipElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "AnnotatedRelationshipElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#BasicEventElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "BasicEventElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Blob> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Blob" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Capability> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Capability" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#DataElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "DataElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Entity> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Entity" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#EventElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "EventElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#File> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "File" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#MultiLanguageProperty> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "MultiLanguageProperty" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Operation> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Operation" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Property> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Property" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Range> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "Range" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#ReferenceElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "ReferenceElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#RelationshipElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "RelationshipElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElement> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "SubmodelElement" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementCollection> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "SubmodelElementCollection" .
+
+<https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementList> a owl:NamedIndividual,
+        aas:AasSubmodelElements ;
+    rdfs:label "SubmodelElementList" .
+
+<https://admin-shell.io/aas/3/0/RC02/AssetKind#Instance> a owl:Class ;
+    rdfs:label "Instance" ;
+    rdfs:subClassOf aas:AssetKind .
+
+<https://admin-shell.io/aas/3/0/RC02/AssetKind#Type> a owl:Class ;
+    rdfs:label "Type" ;
+    rdfs:subClassOf aas:AssetKind .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#AnyUri> a owl:Class ;
+    rdfs:label "AnyUri" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Base64Binary> a owl:Class ;
+    rdfs:label "Base64Binary" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Boolean> a owl:Class ;
+    rdfs:label "Boolean" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Byte> a owl:Class ;
+    rdfs:label "Byte" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Date> a owl:Class ;
+    rdfs:label "Date" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTime> a owl:Class ;
+    rdfs:label "DateTime" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTimeStamp> a owl:Class ;
+    rdfs:label "DateTimeStamp" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DayTimeDuration> a owl:Class ;
+    rdfs:label "DayTimeDuration" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Decimal> a owl:Class ;
+    rdfs:label "Decimal" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Double> a owl:Class ;
+    rdfs:label "Double" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Duration> a owl:Class ;
+    rdfs:label "Duration" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Float> a owl:Class ;
+    rdfs:label "Float" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GDay> a owl:Class ;
+    rdfs:label "GDay" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonth> a owl:Class ;
+    rdfs:label "GMonth" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonthDay> a owl:Class ;
+    rdfs:label "GMonthDay" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYear> a owl:Class ;
+    rdfs:label "GYear" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYearMonth> a owl:Class ;
+    rdfs:label "GYearMonth" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#HexBinary> a owl:Class ;
+    rdfs:label "HexBinary" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Int> a owl:Class ;
+    rdfs:label "Int" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Integer> a owl:Class ;
+    rdfs:label "Integer" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Long> a owl:Class ;
+    rdfs:label "Long" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NegativeInteger> a owl:Class ;
+    rdfs:label "NegativeInteger" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonNegativeInteger> a owl:Class ;
+    rdfs:label "NonNegativeInteger" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonPositiveInteger> a owl:Class ;
+    rdfs:label "NonPositiveInteger" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#PositiveInteger> a owl:Class ;
+    rdfs:label "PositiveInteger" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Short> a owl:Class ;
+    rdfs:label "Short" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#String> a owl:Class ;
+    rdfs:label "String" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Time> a owl:Class ;
+    rdfs:label "Time" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedByte> a owl:Class ;
+    rdfs:label "UnsignedByte" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedInt> a owl:Class ;
+    rdfs:label "UnsignedInt" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedLong> a owl:Class ;
+    rdfs:label "UnsignedLong" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedShort> a owl:Class ;
+    rdfs:label "UnsignedShort" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#YearMonthDuration> a owl:Class ;
+    rdfs:label "YearMonthDuration" ;
+    rdfs:subClassOf aas:DataTypeDefXsd .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Blob> a owl:Class ;
+    rdfs:label "Blob" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Boolean> a owl:Class ;
+    rdfs:label "Boolean" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Date> a owl:Class ;
+    rdfs:label "Date" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#File> a owl:Class ;
+    rdfs:label "File" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Html> a owl:Class ;
+    rdfs:label "Html" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCount> a owl:Class ;
+    rdfs:label "IntegerCount" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCurrency> a owl:Class ;
+    rdfs:label "IntegerCurrency" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerMeasure> a owl:Class ;
+    rdfs:label "IntegerMeasure" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Irdi> a owl:Class ;
+    rdfs:label "Irdi" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Iri> a owl:Class ;
+    rdfs:label "Iri" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Rational> a owl:Class ;
+    rdfs:label "Rational" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RationalMeasure> a owl:Class ;
+    rdfs:label "RationalMeasure" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCount> a owl:Class ;
+    rdfs:label "RealCount" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCurrency> a owl:Class ;
+    rdfs:label "RealCurrency" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealMeasure> a owl:Class ;
+    rdfs:label "RealMeasure" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#String> a owl:Class ;
+    rdfs:label "String" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#StringTranslatable> a owl:Class ;
+    rdfs:label "StringTranslatable" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Time> a owl:Class ;
+    rdfs:label "Time" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Timestamp> a owl:Class ;
+    rdfs:label "Timestamp" ;
+    rdfs:subClassOf aas:DataTypeIec61360 .
+
+<https://admin-shell.io/aas/3/0/RC02/Direction#Input> a owl:Class ;
+    rdfs:label "Input" ;
+    rdfs:subClassOf aas:Direction .
+
+<https://admin-shell.io/aas/3/0/RC02/Direction#Output> a owl:Class ;
+    rdfs:label "Output" ;
+    rdfs:subClassOf aas:Direction .
+
+<https://admin-shell.io/aas/3/0/RC02/EntityType#CoManagedEntity> a owl:Class ;
+    rdfs:label "CoManagedEntity" ;
+    rdfs:subClassOf aas:EntityType .
+
+<https://admin-shell.io/aas/3/0/RC02/EntityType#SelfManagedEntity> a owl:Class ;
+    rdfs:label "SelfManagedEntity" ;
+    rdfs:subClassOf aas:EntityType .
+
+aas:HasKind a owl:Class ;
+    rdfs:label "HasKind" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:ModelingKind ;
+            owl:onProperty aas:kind ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:kind ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:kind ] ;
+    skos:definition "An element with a kind is an element that can either represent a template or an instance." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#AnnotatedRelationshipElement> a owl:Class ;
+    rdfs:label "AnnotatedRelationshipElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#AssetAdministrationShell> a owl:Class ;
+    rdfs:label "AssetAdministrationShell" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#BasicEventElement> a owl:Class ;
+    rdfs:label "BasicEventElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Blob> a owl:Class ;
+    rdfs:label "Blob" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Capability> a owl:Class ;
+    rdfs:label "Capability" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#ConceptDescription> a owl:Class ;
+    rdfs:label "ConceptDescription" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#DataElement> a owl:Class ;
+    rdfs:label "DataElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Entity> a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#EventElement> a owl:Class ;
+    rdfs:label "EventElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#File> a owl:Class ;
+    rdfs:label "File" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#FragmentReference> a owl:Class ;
+    rdfs:label "FragmentReference" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#GlobalReference> a owl:Class ;
+    rdfs:label "GlobalReference" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Identifiable> a owl:Class ;
+    rdfs:label "Identifiable" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#MultiLanguageProperty> a owl:Class ;
+    rdfs:label "MultiLanguageProperty" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Operation> a owl:Class ;
+    rdfs:label "Operation" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Property> a owl:Class ;
+    rdfs:label "Property" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Range> a owl:Class ;
+    rdfs:label "Range" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Referable> a owl:Class ;
+    rdfs:label "Referable" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#ReferenceElement> a owl:Class ;
+    rdfs:label "ReferenceElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#RelationshipElement> a owl:Class ;
+    rdfs:label "RelationshipElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#Submodel> a owl:Class ;
+    rdfs:label "Submodel" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElement> a owl:Class ;
+    rdfs:label "SubmodelElement" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementCollection> a owl:Class ;
+    rdfs:label "SubmodelElementCollection" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementList> a owl:Class ;
+    rdfs:label "SubmodelElementList" ;
+    rdfs:subClassOf aas:KeyTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/LevelType#Max> a owl:Class ;
+    rdfs:label "Max" ;
+    rdfs:subClassOf aas:LevelType .
+
+<https://admin-shell.io/aas/3/0/RC02/LevelType#Min> a owl:Class ;
+    rdfs:label "Min" ;
+    rdfs:subClassOf aas:LevelType .
+
+<https://admin-shell.io/aas/3/0/RC02/LevelType#Nom> a owl:Class ;
+    rdfs:label "Nom" ;
+    rdfs:subClassOf aas:LevelType .
+
+<https://admin-shell.io/aas/3/0/RC02/LevelType#Typ> a owl:Class ;
+    rdfs:label "Typ" ;
+    rdfs:subClassOf aas:LevelType .
+
+<https://admin-shell.io/aas/3/0/RC02/ModelingKind#Instance> a owl:Class ;
+    rdfs:label "Instance" ;
+    rdfs:subClassOf aas:ModelingKind .
+
+<https://admin-shell.io/aas/3/0/RC02/ModelingKind#Template> a owl:Class ;
+    rdfs:label "Template" ;
+    rdfs:subClassOf aas:ModelingKind .
+
+aas:Qualifiable a owl:Class ;
+    rdfs:label "Qualifiable" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:qualifiers ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Qualifier ;
+            owl:onProperty aas:qualifiers ] ;
+    skos:definition "The value of a qualifiable element may be further qualified by one or more qualifiers." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+<https://admin-shell.io/aas/3/0/RC02/QualifierKind#ConceptQualifier> a owl:Class ;
+    rdfs:label "ConceptQualifier" ;
+    rdfs:subClassOf aas:QualifierKind .
+
+<https://admin-shell.io/aas/3/0/RC02/QualifierKind#TemplateQualifier> a owl:Class ;
+    rdfs:label "TemplateQualifier" ;
+    rdfs:subClassOf aas:QualifierKind .
+
+<https://admin-shell.io/aas/3/0/RC02/QualifierKind#ValueQualifier> a owl:Class ;
+    rdfs:label "ValueQualifier" ;
+    rdfs:subClassOf aas:QualifierKind .
+
+aas:Referable a owl:Class ;
+    rdfs:label "Referable" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:checksum ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:checksum ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:category ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:displayName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:idShort ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:idShort ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:string ;
+                                owl:withRestrictions ( [ xsd:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ] ) ] ) ] ;
+            owl:onProperty aas:idShort ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:category ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom rdf:langString ;
+            owl:onProperty aas:displayName ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:checksum ],
+        aas:HasExtensions ;
+    skos:definition "An element that is referable by its 'idShort'." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+<https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#GlobalReference> a owl:Class ;
+    rdfs:label "GlobalReference" ;
+    rdfs:subClassOf aas:ReferenceTypes .
+
+<https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#ModelReference> a owl:Class ;
+    rdfs:label "ModelReference" ;
+    rdfs:subClassOf aas:ReferenceTypes .
+
+aas:SpecificAssetId a owl:Class ;
+    rdfs:label "SpecificAssetId" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:externalSubjectId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:externalSubjectId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:externalSubjectId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:value ],
+        aas:HasSemantics ;
+    skos:definition "A specific asset ID describes a generic supplementary identifying attribute of the asset." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+<https://admin-shell.io/aas/3/0/RC02/StateOfEvent#False> a owl:Class ;
+    rdfs:label "False" ;
+    rdfs:subClassOf aas:StateOfEvent .
+
+<https://admin-shell.io/aas/3/0/RC02/StateOfEvent#True> a owl:Class ;
+    rdfs:label "True" ;
+    rdfs:subClassOf aas:StateOfEvent .
+
+aas:annotations a owl:ObjectProperty ;
+    rdfs:label "annotations" ;
+    skos:definition "A data element that represents an annotation that holds for the relationship between the two elements" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:assetAdministrationShells a owl:ObjectProperty ;
+    rdfs:label "assetAdministrationShells" ;
+    skos:definition "Asset administration shell" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:conceptDescriptions a owl:ObjectProperty ;
+    rdfs:label "conceptDescriptions" ;
+    skos:definition "Concept description" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    skos:definition "Description or comments on the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:displayName a owl:DatatypeProperty ;
+    rdfs:label "displayName" ;
+    skos:definition "Display name. Can be provided in several languages." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:embeddedDataSpecifications a owl:ObjectProperty ;
+    rdfs:label "embeddedDataSpecifications" ;
+    skos:definition "Embedded data specification." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:extensions a owl:ObjectProperty ;
+    rdfs:label "extensions" ;
+    skos:definition "An extension of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:inoutputVariables a owl:ObjectProperty ;
+    rdfs:label "inoutputVariables" ;
+    skos:definition "Parameter that is input and output of the operation." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:inputVariables a owl:ObjectProperty ;
+    rdfs:label "inputVariables" ;
+    skos:definition "Input parameter of the operation." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:isCaseOf a owl:ObjectProperty ;
+    rdfs:label "isCaseOf" ;
+    skos:definition "Reference to an external definition the concept is compatible to or was derived from." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:keys a owl:ObjectProperty ;
+    rdfs:label "keys" ;
+    skos:definition "Unique references in their name space." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:outputVariables a owl:ObjectProperty ;
+    rdfs:label "outputVariables" ;
+    skos:definition "Output parameter of the operation." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:preferredName a owl:DatatypeProperty ;
+    rdfs:label "preferredName" ;
+    skos:definition "Preferred name" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:qualifiers a owl:ObjectProperty ;
+    rdfs:label "qualifiers" ;
+    skos:definition "Additional qualification of a qualifiable element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:shortName a owl:DatatypeProperty ;
+    rdfs:label "shortName" ;
+    skos:definition "Short name" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:specificAssetIds a owl:ObjectProperty ;
+    rdfs:label "specificAssetIds" ;
+    skos:definition "Additional domain-specific, typically proprietary identifier for the asset like e.g., serial number etc." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:statements a owl:ObjectProperty ;
+    rdfs:label "statements" ;
+    skos:definition "Describes statements applicable to the entity by a set of submodel elements, typically with a qualified value." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:submodelElements a owl:ObjectProperty ;
+    rdfs:label "submodelElements" ;
+    skos:definition "A submodel consists of zero or more submodel elements." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:supplementalSemanticIds a owl:ObjectProperty ;
+    rdfs:label "supplementalSemanticIds" ;
+    skos:definition "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:valueReferencePairs a owl:ObjectProperty ;
+    rdfs:label "valueReferencePairs" ;
+    skos:definition "A pair of a value together with its global unique id." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:AssetKind a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/AssetKind#Type> <https://admin-shell.io/aas/3/0/RC02/AssetKind#Instance> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/AssetKind#Instance>,
+        <https://admin-shell.io/aas/3/0/RC02/AssetKind#Type> .
+
+aas:DataSpecificationContent a owl:Class ;
+    rdfs:label "DataSpecificationContent" ;
+    skos:definition "Data specification content is part of a data specification template and defines which additional attributes shall be added to the element instance that references the data specification template and meta information about the template itself." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:Direction a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/Direction#Input> <https://admin-shell.io/aas/3/0/RC02/Direction#Output> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/Direction#Input>,
+        <https://admin-shell.io/aas/3/0/RC02/Direction#Output> .
+
+aas:EntityType a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/EntityType#CoManagedEntity> <https://admin-shell.io/aas/3/0/RC02/EntityType#SelfManagedEntity> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/EntityType#CoManagedEntity>,
+        <https://admin-shell.io/aas/3/0/RC02/EntityType#SelfManagedEntity> .
+
+aas:Identifiable a owl:Class ;
+    rdfs:label "Identifiable" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty aas:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:administration ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:AdministrativeInformation ;
+            owl:onProperty aas:administration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:administration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:id ],
+        aas:Referable ;
+    skos:definition "An element that has a globally unique identifier." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ModelingKind a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/ModelingKind#Template> <https://admin-shell.io/aas/3/0/RC02/ModelingKind#Instance> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/ModelingKind#Instance>,
+        <https://admin-shell.io/aas/3/0/RC02/ModelingKind#Template> .
+
+aas:OperationVariable a owl:Class ;
+    rdfs:label "OperationVariable" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:SubmodelElement ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:value ] ;
+    skos:definition "The value of an operation variable is a submodel element that is used as input and/or output variable of an operation." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:ReferenceTypes a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#GlobalReference> <https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#ModelReference> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#GlobalReference>,
+        <https://admin-shell.io/aas/3/0/RC02/ReferenceTypes#ModelReference> .
+
+aas:StateOfEvent a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/StateOfEvent#True> <https://admin-shell.io/aas/3/0/RC02/StateOfEvent#False> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/StateOfEvent#False>,
+        <https://admin-shell.io/aas/3/0/RC02/StateOfEvent#True> .
+
+aas:administration a owl:ObjectProperty ;
+    rdfs:label "administration" ;
+    skos:definition "Administrative information of an identifiable element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:assetInformation a owl:ObjectProperty ;
+    rdfs:label "assetInformation" ;
+    skos:definition "Meta-information about the asset the AAS is representing." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:assetKind a owl:ObjectProperty ;
+    rdfs:label "assetKind" ;
+    skos:definition "Denotes whether the Asset is of kind 'Type' or 'Instance'." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:category a owl:DatatypeProperty ;
+    rdfs:label "category" ;
+    skos:definition "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:checksum a owl:DatatypeProperty ;
+    rdfs:label "checksum" ;
+    skos:definition "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:conversionFactor a owl:DatatypeProperty ;
+    rdfs:label "conversionFactor" ;
+    skos:definition "Conversion factor" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:dataSpecification a owl:ObjectProperty ;
+    rdfs:label "dataSpecification" ;
+    skos:definition "Reference to the data specification" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:dataSpecificationContent a owl:ObjectProperty ;
+    rdfs:label "dataSpecificationContent" ;
+    skos:definition "Actual content of the data specification" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:dataType a owl:ObjectProperty ;
+    rdfs:label "dataType" ;
+    skos:definition "Data Type" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:defaultThumbnail a owl:ObjectProperty ;
+    rdfs:label "defaultThumbnail" ;
+    skos:definition "Thumbnail of the asset represented by the Asset Administration Shell." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:derivedFrom a owl:ObjectProperty ;
+    rdfs:label "derivedFrom" ;
+    skos:definition "The reference to the AAS the AAS was derived from." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:dinNotation a owl:DatatypeProperty ;
+    rdfs:label "dinNotation" ;
+    skos:definition "Notation of physical unit conformant to DIN" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:direction a owl:ObjectProperty ;
+    rdfs:label "direction" ;
+    skos:definition "Direction of event." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:eceCode a owl:DatatypeProperty ;
+    rdfs:label "eceCode" ;
+    skos:definition "Code of physical unit conformant to ECE" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:eceName a owl:DatatypeProperty ;
+    rdfs:label "eceName" ;
+    skos:definition "Name of physical unit conformant to ECE" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:entityType a owl:ObjectProperty ;
+    rdfs:label "entityType" ;
+    skos:definition "Describes whether the entity is a co-managed entity or a self-managed entity." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:externalSubjectId a owl:ObjectProperty ;
+    rdfs:label "externalSubjectId" ;
+    skos:definition "The (external) subject the key belongs to or has meaning to." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:first a owl:ObjectProperty ;
+    rdfs:label "first" ;
+    skos:definition "Reference to the first element in the relationship taking the role of the subject." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:id a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    skos:definition "The globally unique identification of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:idShort a owl:DatatypeProperty ;
+    rdfs:label "idShort" ;
+    skos:definition "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:lastUpdate a owl:DatatypeProperty ;
+    rdfs:label "lastUpdate" ;
+    skos:definition "Timestamp in UTC, when the last event was received (input direction) or sent (output direction)." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:levelType a owl:ObjectProperty ;
+    rdfs:label "levelType" ;
+    skos:definition "Set of levels." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:max a owl:DatatypeProperty ;
+    rdfs:label "max" ;
+    skos:definition "The maximum value of the range." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:maxInterval a owl:DatatypeProperty ;
+    rdfs:label "maxInterval" ;
+    skos:definition "For input direction: not applicable." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:messageBroker a owl:ObjectProperty ;
+    rdfs:label "messageBroker" ;
+    skos:definition "Information, which outer message infrastructure shall handle messages for the 'EventElement'. Refers to a 'Submodel', 'SubmodelElementList', 'SubmodelElementCollection' or 'Entity', which contains 'DataElement''s describing the proprietary specification for the message broker." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:messageTopic a owl:DatatypeProperty ;
+    rdfs:label "messageTopic" ;
+    skos:definition "Information for the outer message infrastructure for scheduling the event to the respective communication channel." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:min a owl:DatatypeProperty ;
+    rdfs:label "min" ;
+    skos:definition "The minimum value of the range." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:minInterval a owl:DatatypeProperty ;
+    rdfs:label "minInterval" ;
+    skos:definition "For input direction, reports on the maximum frequency, the software entity behind the respective Referable can handle input events." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:nistName a owl:DatatypeProperty ;
+    rdfs:label "nistName" ;
+    skos:definition "Name of NIST physical unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:observableReference a owl:ObjectProperty ;
+    rdfs:label "observableReference" ;
+    skos:definition "Reference to the referable, which defines the scope of the event." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:observableSemanticId a owl:ObjectProperty ;
+    rdfs:label "observableSemanticId" ;
+    skos:definition "'semanticId' of the referable which defines the scope of the event, if available." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:observed a owl:ObjectProperty ;
+    rdfs:label "observed" ;
+    skos:definition "Reference to the 'Referable', which defines the scope of the event. Can be 'AssetAdministrationShell', 'Submodel', or 'SubmodelElement'." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:orderRelevant a owl:DatatypeProperty ;
+    rdfs:label "orderRelevant" ;
+    skos:definition "Defines whether order in list is relevant. If 'orderRelevant' = False then the list is representing a set or a bag." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:path a owl:DatatypeProperty ;
+    rdfs:label "path" ;
+    skos:definition "Path and name of the resource (with file extension)." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:payload a owl:DatatypeProperty ;
+    rdfs:label "payload" ;
+    skos:definition "Event specific payload." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:referredSemanticId a owl:ObjectProperty ;
+    rdfs:label "referredSemanticId" ;
+    skos:definition "'semanticId' of the referenced model element ('type' = 'ModelReference')." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:refersTo a owl:ObjectProperty ;
+    rdfs:label "refersTo" ;
+    skos:definition "Reference to an element the extension refers to." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:registrationAuthorityId a owl:DatatypeProperty ;
+    rdfs:label "registrationAuthorityId" ;
+    skos:definition "Registration authority ID" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:revision a owl:DatatypeProperty ;
+    rdfs:label "revision" ;
+    skos:definition "Revision of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:second a owl:ObjectProperty ;
+    rdfs:label "second" ;
+    skos:definition "Reference to the second element in the relationship taking the role of the object." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:semanticId a owl:ObjectProperty ;
+    rdfs:label "semanticId" ;
+    skos:definition "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:semanticIdListElement a owl:ObjectProperty ;
+    rdfs:label "semanticIdListElement" ;
+    skos:definition "Semantic ID the submodel elements contained in the list match to." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:siName a owl:DatatypeProperty ;
+    rdfs:label "siName" ;
+    skos:definition "Name of SI physical unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:siNotation a owl:DatatypeProperty ;
+    rdfs:label "siNotation" ;
+    skos:definition "Notation of SI physical unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:source a owl:ObjectProperty ;
+    rdfs:label "source" ;
+    skos:definition "Reference to the source event element, including identification of 'AssetAdministrationShell', 'Submodel', 'SubmodelElement''s." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:sourceSemanticId a owl:ObjectProperty ;
+    rdfs:label "sourceSemanticId" ;
+    skos:definition "'semanticId' of the source event element, if available" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:specificAssetId a owl:ObjectProperty ;
+    rdfs:label "specificAssetId" ;
+    skos:definition "Reference to a specific asset ID representing a supplementary identifier of the asset represented by the Asset Administration Shell." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:state a owl:ObjectProperty ;
+    rdfs:label "state" ;
+    skos:definition "State of event." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:subjectId a owl:ObjectProperty ;
+    rdfs:label "subjectId" ;
+    skos:definition "Subject, who/which initiated the creation." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:supplier a owl:DatatypeProperty ;
+    rdfs:label "supplier" ;
+    skos:definition "Supplier" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:symbol a owl:DatatypeProperty ;
+    rdfs:label "symbol" ;
+    skos:definition "Symbol" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:timeStamp a owl:DatatypeProperty ;
+    rdfs:label "timeStamp" ;
+    skos:definition "Timestamp in UTC, when this event was triggered." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:topic a owl:DatatypeProperty ;
+    rdfs:label "topic" ;
+    skos:definition "Information for the outer message infrastructure for scheduling the event to the respective communication channel." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:typeValueListElement a owl:ObjectProperty ;
+    rdfs:label "typeValueListElement" ;
+    skos:definition "The submodel element type of the submodel elements contained in the list." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:unit a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    skos:definition "Unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:unitId a owl:ObjectProperty ;
+    rdfs:label "unitId" ;
+    skos:definition "Unique unit id" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:unitName a owl:DatatypeProperty ;
+    rdfs:label "unitName" ;
+    skos:definition "Name of the physical unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:unitSymbol a owl:DatatypeProperty ;
+    rdfs:label "unitSymbol" ;
+    skos:definition "Symbol for the physical unit" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:valueFormat a owl:DatatypeProperty ;
+    rdfs:label "valueFormat" ;
+    skos:definition "Value Format" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:valueList a owl:ObjectProperty ;
+    rdfs:label "valueList" ;
+    skos:definition "List of allowed values" ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:valueTypeListElement a owl:ObjectProperty ;
+    rdfs:label "valueTypeListElement" ;
+    skos:definition "The value type of the submodel element contained in the list." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
+    skos:definition "Version of the element." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:QualifierKind a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/QualifierKind#ValueQualifier> <https://admin-shell.io/aas/3/0/RC02/QualifierKind#ConceptQualifier> <https://admin-shell.io/aas/3/0/RC02/QualifierKind#TemplateQualifier> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/QualifierKind#ConceptQualifier>,
+        <https://admin-shell.io/aas/3/0/RC02/QualifierKind#TemplateQualifier>,
+        <https://admin-shell.io/aas/3/0/RC02/QualifierKind#ValueQualifier> .
+
+aas:definition a owl:DatatypeProperty .
+
+aas:submodels a owl:ObjectProperty .
+
+aas:HasDataSpecification a owl:Class ;
+    rdfs:label "HasDataSpecification" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:EmbeddedDataSpecification ;
+            owl:onProperty aas:embeddedDataSpecifications ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:embeddedDataSpecifications ] ;
+    skos:definition "Element that can be extended by using data specification templates." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:HasSemantics a owl:Class ;
+    rdfs:label "HasSemantics" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:semanticId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:semanticId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:semanticId ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:supplementalSemanticIds ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:supplementalSemanticIds ] ;
+    skos:definition "Element that can have a semantic definition plus some supplemental semantic definitions." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:LevelType a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/LevelType#Min> <https://admin-shell.io/aas/3/0/RC02/LevelType#Max> <https://admin-shell.io/aas/3/0/RC02/LevelType#Nom> <https://admin-shell.io/aas/3/0/RC02/LevelType#Typ> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/LevelType#Max>,
+        <https://admin-shell.io/aas/3/0/RC02/LevelType#Min>,
+        <https://admin-shell.io/aas/3/0/RC02/LevelType#Nom>,
+        <https://admin-shell.io/aas/3/0/RC02/LevelType#Typ> .
+
+aas:globalAssetId a owl:ObjectProperty .
+
+aas:kind a owl:ObjectProperty .
+
+aas:name a owl:DatatypeProperty .
+
+aas:sourceOfDefinition a owl:DatatypeProperty .
+
+rdf:langString a rdfs:Datatype .
+
+aas:DataElement a owl:Class ;
+    rdfs:label "DataElement" ;
+    rdfs:subClassOf aas:SubmodelElement ;
+    skos:definition "A data element is a submodel element that is not further composed out of other submodel elements." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:contentType a owl:DatatypeProperty .
+
+aas:type a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+aas:valueId a owl:ObjectProperty .
+
+aas:valueType a owl:ObjectProperty .
+
+aas:SubmodelElement a owl:Class ;
+    rdfs:label "SubmodelElement" ;
+    rdfs:subClassOf aas:HasDataSpecification,
+        aas:HasKind,
+        aas:HasSemantics,
+        aas:Qualifiable,
+        aas:Referable ;
+    skos:definition "A submodel element is an element suitable for the description and differentiation of assets." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:AasSubmodelElements a owl:Class ;
+    owl:oneOf ( <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#AnnotatedRelationshipElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#BasicEventElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Blob> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Capability> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#DataElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Entity> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#EventElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#File> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#MultiLanguageProperty> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Operation> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Property> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Range> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#ReferenceElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#RelationshipElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElement> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementList> <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementCollection> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#AnnotatedRelationshipElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#BasicEventElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Blob>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Capability>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#DataElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Entity>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#EventElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#File>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#MultiLanguageProperty>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Operation>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Property>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#Range>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#ReferenceElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#RelationshipElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElement>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementCollection>,
+        <https://admin-shell.io/aas/3/0/RC02/AasSubmodelElements#SubmodelElementList> .
+
+aas:DataTypeIec61360 a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Date> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#String> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#StringTranslatable> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerMeasure> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCount> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCurrency> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealMeasure> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCount> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCurrency> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Boolean> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Iri> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Irdi> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Rational> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RationalMeasure> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Time> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Timestamp> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#File> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Html> <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Blob> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Blob>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Boolean>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Date>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#File>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Html>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCount>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerCurrency>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#IntegerMeasure>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Irdi>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Iri>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Rational>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RationalMeasure>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCount>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealCurrency>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#RealMeasure>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#String>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#StringTranslatable>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Time>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeIec61360#Timestamp> .
+
+aas:KeyTypes a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/KeyTypes#FragmentReference> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#GlobalReference> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#AnnotatedRelationshipElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#AssetAdministrationShell> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#BasicEventElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Blob> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Capability> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#ConceptDescription> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Identifiable> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#DataElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Entity> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#EventElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#File> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#MultiLanguageProperty> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Operation> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Property> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Range> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#ReferenceElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Referable> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#RelationshipElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Submodel> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElement> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementList> <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementCollection> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/KeyTypes#AnnotatedRelationshipElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#AssetAdministrationShell>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#BasicEventElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Blob>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Capability>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#ConceptDescription>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#DataElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Entity>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#EventElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#File>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#FragmentReference>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#GlobalReference>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Identifiable>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#MultiLanguageProperty>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Operation>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Property>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Range>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Referable>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#ReferenceElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#RelationshipElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#Submodel>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElement>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementCollection>,
+        <https://admin-shell.io/aas/3/0/RC02/KeyTypes#SubmodelElementList> .
+
+aas:Reference a owl:Class ;
+    rdfs:label "Reference" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty aas:referredSemanticId ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:referredSemanticId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Reference ;
+            owl:onProperty aas:referredSemanticId ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:ReferenceTypes ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom aas:Key ;
+            owl:onProperty aas:keys ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty aas:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty aas:keys ] ;
+    skos:definition "Reference to either a model element of the same or another AAS or to an external entity." ;
+    skos:inScheme <https://admin-shell.io/aas/3/0/RC02> .
+
+aas:DataTypeDefXsd a owl:Class ;
+    owl:unionOf ( <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#AnyUri> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Base64Binary> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Boolean> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Date> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTime> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTimeStamp> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Decimal> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Double> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Duration> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Float> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GDay> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonth> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonthDay> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYear> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYearMonth> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#HexBinary> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#String> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Time> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DayTimeDuration> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#YearMonthDuration> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Integer> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Long> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Int> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Short> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Byte> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonNegativeInteger> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#PositiveInteger> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedLong> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedInt> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedShort> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedByte> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonPositiveInteger> <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NegativeInteger> ) ;
+    linkml:permissible_values <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#AnyUri>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Base64Binary>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Boolean>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Byte>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Date>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTime>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DateTimeStamp>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#DayTimeDuration>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Decimal>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Double>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Duration>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Float>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GDay>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonth>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GMonthDay>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYear>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#GYearMonth>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#HexBinary>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Int>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Integer>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Long>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NegativeInteger>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonNegativeInteger>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#NonPositiveInteger>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#PositiveInteger>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Short>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#String>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#Time>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedByte>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedInt>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedLong>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#UnsignedShort>,
+        <https://admin-shell.io/aas/3/0/RC02/DataTypeDefXsd#YearMonthDuration> .
+
+aas:value a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+

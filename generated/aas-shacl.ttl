@@ -1,0 +1,2294 @@
+@prefix aas: <https://admin-shell.io/aas/3/0/RC02/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+aas:AnnotatedRelationshipElement a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An annotated relationship element is a relationship element that can be annotated with additional data elements." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the first element in the relationship taking the role of the subject." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:first ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:semanticId ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path aas:kind ],
+        [ sh:class aas:DataElement ;
+            sh:description "A data element that represents an annotation that holds for the relationship between the two elements" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:annotations ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:category ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the second element in the relationship taking the role of the object." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:second ] ;
+    sh:targetClass aas:AnnotatedRelationshipElement .
+
+aas:BasicEventElement a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A basic event element." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 17 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 16 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Reference ;
+            sh:description "Information, which outer message infrastructure shall handle messages for the 'EventElement'. Refers to a 'Submodel', 'SubmodelElementList', 'SubmodelElementCollection' or 'Entity', which contains 'DataElement''s describing the proprietary specification for the message broker." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:messageBroker ],
+        [ sh:datatype xsd:string ;
+            sh:description "Timestamp in UTC, when the last event was received (input direction) or sent (output direction)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:lastUpdate ;
+            sh:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 15 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:description "State of event." ;
+            sh:in ( "True" "False" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 7 ;
+            sh:path aas:state ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information for the outer message infrastructure for scheduling the event to the respective communication channel." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:messageTopic ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 13 ;
+            sh:path aas:kind ],
+        [ sh:description "Direction of event." ;
+            sh:in ( "Input" "Output" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path aas:direction ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 18 ;
+            sh:path aas:extensions ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the 'Referable', which defines the scope of the event. Can be 'AssetAdministrationShell', 'Submodel', or 'SubmodelElement'." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:observed ],
+        [ sh:datatype xsd:string ;
+            sh:description "For input direction: not applicable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:maxInterval ;
+            sh:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "For input direction, reports on the maximum frequency, the software entity behind the respective Referable can handle input events." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:minInterval ;
+            sh:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ] ;
+    sh:targetClass aas:BasicEventElement .
+
+aas:Blob a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A 'Blob' is a data element that represents a file that is contained with its source code in the value attribute." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:checksum ],
+        [ sh:datatype xsd:base64Binary ;
+            sh:description "The value of the 'Blob' instance of a blob data element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:value ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:description ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path aas:kind ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:category ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "Content type of the content of the 'Blob'." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:contentType ;
+            sh:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:extensions ] ;
+    sh:targetClass aas:Blob .
+
+aas:Capability a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A capability is the implementation-independent description of the potential of an asset to achieve a certain effect in the physical or virtual world." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:description ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:extensions ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:category ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path aas:kind ] ;
+    sh:targetClass aas:Capability .
+
+aas:DataSpecificationIec61360 a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Content of data specification template for concept descriptions for properties, values and value lists conformant to IEC 61360." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Symbol" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:symbol ],
+        [ sh:datatype xsd:string ;
+            sh:description "Source of definition" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:sourceOfDefinition ],
+        [ sh:description "Set of levels." ;
+            sh:in ( "Min" "Max" "Nom" "Typ" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path aas:levelType ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Definition in different languages" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:definition ],
+        [ sh:class aas:ValueList ;
+            sh:description "List of allowed values" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:valueList ],
+        [ sh:description "Data Type" ;
+            sh:in ( "Date" "String" "StringTranslatable" "IntegerMeasure" "IntegerCount" "IntegerCurrency" "RealMeasure" "RealCount" "RealCurrency" "Boolean" "Iri" "Irdi" "Rational" "RationalMeasure" "Time" "Timestamp" "File" "Html" "Blob" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path aas:dataType ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Short name" ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:shortName ],
+        [ sh:class aas:Reference ;
+            sh:description "Unique unit id" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:unitId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unit" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:unit ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Preferred name" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:preferredName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Value" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Value Format" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path aas:valueFormat ] ;
+    sh:targetClass aas:DataSpecificationIec61360 .
+
+aas:DataSpecificationPhysicalUnit a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Notation of physical unit conformant to DIN" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:dinNotation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of SI physical unit" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:siName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Code of physical unit conformant to ECE" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:eceCode ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of physical unit conformant to ECE" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:eceName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Notation of SI physical unit" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:siNotation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Conversion factor" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:conversionFactor ],
+        [ sh:datatype xsd:string ;
+            sh:description "Registration authority ID" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:registrationAuthorityId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Supplier" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path aas:supplier ],
+        [ sh:datatype xsd:string ;
+            sh:description "Source of definition" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:sourceOfDefinition ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Definition in different languages" ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:definition ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the physical unit" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path aas:unitName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of NIST physical unit" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:nistName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Symbol for the physical unit" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path aas:unitSymbol ] ;
+    sh:targetClass aas:DataSpecificationPhysicalUnit .
+
+aas:Entity a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An entity is a submodel element that is used to model entities." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Reference ;
+            sh:description "Global identifier of the asset the entity is representing." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:globalAssetId ],
+        [ sh:description "Describes whether the entity is a co-managed entity or a self-managed entity." ;
+            sh:in ( "CoManagedEntity" "SelfManagedEntity" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path aas:entityType ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 9 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:category ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:SubmodelElement ;
+            sh:description "Describes statements applicable to the entity by a set of submodel elements, typically with a qualified value." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:statements ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:SpecificAssetId ;
+            sh:description "Reference to a specific asset ID representing a supplementary identifier of the asset represented by the Asset Administration Shell." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:specificAssetId ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path aas:extensions ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:description ] ;
+    sh:targetClass aas:Entity .
+
+aas:Environment a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Container for the sets of different identifiables." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:ConceptDescription ;
+            sh:description "Concept description" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:conceptDescriptions ],
+        [ sh:class aas:Submodel ;
+            sh:description "Submodel" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:submodels ],
+        [ sh:class aas:AssetAdministrationShell ;
+            sh:description "Asset administration shell" ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:assetAdministrationShells ] ;
+    sh:targetClass aas:Environment .
+
+aas:EventElement a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "An event element." ;
+    sh:ignoredProperties ( aas:lastUpdate aas:messageTopic aas:state aas:messageBroker aas:direction aas:maxInterval rdf:type aas:observed aas:minInterval ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:description ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:extensions ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:category ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:qualifiers ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path aas:kind ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:displayName ] ;
+    sh:targetClass aas:EventElement .
+
+aas:EventPayload a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Defines the necessary information of an event instance sent out or received." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "'semanticId' of the source event element, if available" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path aas:sourceSemanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Information for the outer message infrastructure for scheduling the event to the respective communication channel." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:topic ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the source event element, including identification of 'AssetAdministrationShell', 'Submodel', 'SubmodelElement''s." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:source ],
+        [ sh:datatype xsd:string ;
+            sh:description "Timestamp in UTC, when this event was triggered." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:timeStamp ;
+            sh:pattern "^-?(([1-9][0-9][0-9][0-9]+)|(0[0-9][0-9][0-9]))-((0[1-9])|(1[0-2]))-((0[1-9])|([12][0-9])|(3[01]))T(((([01][0-9])|(2[0-3])):[0-5][0-9]:([0-5][0-9])(\\.[0-9]+)?)|24:00:00(\\.0+)?)Z$" ],
+        [ sh:class aas:Reference ;
+            sh:description "'semanticId' of the referable which defines the scope of the event, if available." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:observableSemanticId ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the referable, which defines the scope of the event." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:observableReference ],
+        [ sh:datatype xsd:string ;
+            sh:description "Event specific payload." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:payload ],
+        [ sh:class aas:Reference ;
+            sh:description "Subject, who/which initiated the creation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:subjectId ] ;
+    sh:targetClass aas:EventPayload .
+
+aas:File a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A File is a data element that represents an address to a file (a locator)." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "Path and name of the referenced file (with file extension)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:value ;
+            sh:pattern "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path aas:kind ],
+        [ sh:datatype xsd:string ;
+            sh:description "Content type of the content of the file." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:contentType ;
+            sh:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:semanticId ] ;
+    sh:targetClass aas:File .
+
+aas:HasDataSpecification a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "Element that can be extended by using data specification templates." ;
+    sh:ignoredProperties ( aas:revision rdf:type aas:version ) ;
+    sh:property [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:embeddedDataSpecifications ] ;
+    sh:targetClass aas:HasDataSpecification .
+
+aas:HasExtensions a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "Element that can be extended by proprietary extensions." ;
+    sh:ignoredProperties ( aas:description aas:administration aas:displayName rdf:type aas:id aas:idShort aas:checksum aas:category ) ;
+    sh:property [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:extensions ] ;
+    sh:targetClass aas:HasExtensions .
+
+aas:HasKind a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "An element with a kind is an element that can either represent a template or an instance." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path aas:kind ] ;
+    sh:targetClass aas:HasKind .
+
+aas:HasSemantics a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "Element that can have a semantic definition plus some supplemental semantic definitions." ;
+    sh:ignoredProperties ( aas:value aas:externalSubjectId aas:valueId aas:kind aas:refersTo aas:type aas:valueType aas:name rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:semanticId ] ;
+    sh:targetClass aas:HasSemantics .
+
+aas:Identifiable a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "An element that has a globally unique identifier." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:category ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:extensions ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:checksum ],
+        [ sh:datatype xsd:string ;
+            sh:description "The globally unique identification of the element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:id ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:AdministrativeInformation ;
+            sh:description "Administrative information of an identifiable element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:administration ] ;
+    sh:targetClass aas:Identifiable .
+
+aas:MultiLanguageProperty a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A property is a data element that has a multi-language value." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:category ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:displayName ],
+        [ sh:datatype rdf:langString ;
+            sh:description "The value of the property instance." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:value ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:description ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the global unique ID of a coded value." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:valueId ] ;
+    sh:targetClass aas:MultiLanguageProperty .
+
+aas:Operation a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An operation is a submodel element with input and output variables." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:OperationVariable ;
+            sh:description "Parameter that is input and output of the operation." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:inoutputVariables ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:category ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:description ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:semanticId ],
+        [ sh:class aas:OperationVariable ;
+            sh:description "Output parameter of the operation." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:outputVariables ],
+        [ sh:class aas:OperationVariable ;
+            sh:description "Input parameter of the operation." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:inputVariables ] ;
+    sh:targetClass aas:Operation .
+
+aas:Property a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A property is a data element that has a single value." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the global unique ID of a coded value." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:valueId ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:semanticId ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path aas:kind ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:displayName ],
+        [ sh:description "Data type of the value" ;
+            sh:in ( "AnyUri" "Base64Binary" "Boolean" "Date" "DateTime" "DateTimeStamp" "Decimal" "Double" "Duration" "Float" "GDay" "GMonth" "GMonthDay" "GYear" "GYearMonth" "HexBinary" "String" "Time" "DayTimeDuration" "YearMonthDuration" "Integer" "Long" "Int" "Short" "Byte" "NonNegativeInteger" "PositiveInteger" "UnsignedLong" "UnsignedInt" "UnsignedShort" "UnsignedByte" "NonPositiveInteger" "NegativeInteger" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path aas:valueType ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:category ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:extensions ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The value of the property instance." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:value ] ;
+    sh:targetClass aas:Property .
+
+aas:Qualifiable a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "The value of a qualifiable element may be further qualified by one or more qualifiers." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:qualifiers ] ;
+    sh:targetClass aas:Qualifiable .
+
+aas:Range a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A range data element is a data element that defines a range with min and max." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The maximum value of the range." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:max ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The minimum value of the range." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:min ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:extensions ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:category ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 8 ;
+            sh:path aas:kind ],
+        [ sh:description "Data type of the min und max" ;
+            sh:in ( "AnyUri" "Base64Binary" "Boolean" "Date" "DateTime" "DateTimeStamp" "Decimal" "Double" "Duration" "Float" "GDay" "GMonth" "GMonthDay" "GYear" "GYearMonth" "HexBinary" "String" "Time" "DayTimeDuration" "YearMonthDuration" "Integer" "Long" "Int" "Short" "Byte" "NonNegativeInteger" "PositiveInteger" "UnsignedLong" "UnsignedInt" "UnsignedShort" "UnsignedByte" "NonPositiveInteger" "NegativeInteger" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path aas:valueType ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:checksum ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:displayName ] ;
+    sh:targetClass aas:Range .
+
+aas:Referable a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "An element that is referable by its 'idShort'." ;
+    sh:ignoredProperties ( aas:id aas:administration rdf:type ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:extensions ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:checksum ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:category ] ;
+    sh:targetClass aas:Referable .
+
+aas:ReferenceElement a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A reference element is a data element that defines a logical reference to another element within the same or another AAS or a reference to an external object or entity." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Global reference to an external object or entity or a logical reference to another element within the same or another AAS (i.e. a model reference to a Referable)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:value ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:description ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:extensions ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path aas:kind ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:category ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:semanticId ] ;
+    sh:targetClass aas:ReferenceElement .
+
+aas:RelationshipElement a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A relationship element is used to define a relationship between two elements being either referable (model reference) or external (global reference)." ;
+    sh:ignoredProperties ( rdf:type aas:annotations ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:description ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the first element in the relationship taking the role of the subject." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:first ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:category ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the second element in the relationship taking the role of the object." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:second ] ;
+    sh:targetClass aas:RelationshipElement .
+
+aas:SubmodelElementCollection a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A submodel element collection is a kind of struct, i.e. a a logical encapsulation of multiple named values. It has a fixed number of submodel elements." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:SubmodelElement ;
+            sh:description "Submodel element contained in the collection." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:value ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:extensions ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:category ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:semanticId ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path aas:kind ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:description ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:displayName ] ;
+    sh:targetClass aas:SubmodelElementCollection .
+
+aas:SubmodelElementList a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A submodel element list is an ordered list of submodel elements." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:checksum ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 10 ;
+            sh:path aas:kind ],
+        [ sh:description "The submodel element type of the submodel elements contained in the list." ;
+            sh:in ( "AnnotatedRelationshipElement" "BasicEventElement" "Blob" "Capability" "DataElement" "Entity" "EventElement" "File" "MultiLanguageProperty" "Operation" "Property" "Range" "ReferenceElement" "RelationshipElement" "SubmodelElement" "SubmodelElementList" "SubmodelElementCollection" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path aas:typeValueListElement ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:Reference ;
+            sh:description "Semantic ID the submodel elements contained in the list match to." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:semanticIdListElement ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 15 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:SubmodelElement ;
+            sh:description "Submodel element contained in the list." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:value ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 14 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:description "The value type of the submodel element contained in the list." ;
+            sh:in ( "AnyUri" "Base64Binary" "Boolean" "Date" "DateTime" "DateTimeStamp" "Decimal" "Double" "Duration" "Float" "GDay" "GMonth" "GMonthDay" "GYear" "GYearMonth" "HexBinary" "String" "Time" "DayTimeDuration" "YearMonthDuration" "Integer" "Long" "Int" "Short" "Byte" "NonNegativeInteger" "PositiveInteger" "UnsignedLong" "UnsignedInt" "UnsignedShort" "UnsignedByte" "NonPositiveInteger" "NegativeInteger" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path aas:valueTypeListElement ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:qualifiers ],
+        [ sh:datatype xsd:boolean ;
+            sh:description "Defines whether order in list is relevant. If 'orderRelevant' = False then the list is representing a set or a bag." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:orderRelevant ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:category ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:description ] ;
+    sh:targetClass aas:SubmodelElementList .
+
+aas:AssetAdministrationShell a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An asset administration shell." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:description ],
+        [ sh:class aas:Reference ;
+            sh:description "The reference to the AAS the AAS was derived from." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:derivedFrom ],
+        [ sh:class aas:Reference ;
+            sh:description "References to submodels of the AAS." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:submodels ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:AdministrativeInformation ;
+            sh:description "Administrative information of an identifiable element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:administration ],
+        [ sh:class aas:AssetInformation ;
+            sh:description "Meta-information about the asset the AAS is representing." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:assetInformation ],
+        [ sh:datatype xsd:string ;
+            sh:description "The globally unique identification of the element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:id ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:category ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path aas:extensions ] ;
+    sh:targetClass aas:AssetAdministrationShell .
+
+aas:AssetInformation a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "In 'AssetInformation' identifying meta data of the asset that is represented by an AAS is defined." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Denotes whether the Asset is of kind 'Type' or 'Instance'." ;
+            sh:in ( "Type" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path aas:assetKind ],
+        [ sh:class aas:Reference ;
+            sh:description "Global identifier of the asset the AAS is representing." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:globalAssetId ],
+        [ sh:class aas:SpecificAssetId ;
+            sh:description "Additional domain-specific, typically proprietary identifier for the asset like e.g., serial number etc." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:specificAssetIds ],
+        [ sh:class aas:Resource ;
+            sh:description "Thumbnail of the asset represented by the Asset Administration Shell." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:defaultThumbnail ] ;
+    sh:targetClass aas:AssetInformation .
+
+aas:ConceptDescription a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "The semantics of a property or other elements that may have a semantic description is defined by a concept description." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path aas:checksum ],
+        [ sh:datatype xsd:string ;
+            sh:description "The globally unique identification of the element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:id ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:category ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to an external definition the concept is compatible to or was derived from." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:isCaseOf ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:extensions ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:AdministrativeInformation ;
+            sh:description "Administrative information of an identifiable element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:administration ] ;
+    sh:targetClass aas:ConceptDescription .
+
+aas:DataElement a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "A data element is a submodel element that is not further composed out of other submodel elements." ;
+    sh:ignoredProperties ( aas:value aas:valueId aas:max aas:valueType aas:contentType rdf:type aas:min ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:checksum ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:displayName ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:category ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:semanticId ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:extensions ] ;
+    sh:targetClass aas:DataElement .
+
+aas:DataSpecificationContent a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "Data specification content is part of a data specification template and defines which additional attributes shall be added to the element instance that references the data specification template and meta information about the template itself." ;
+    sh:ignoredProperties ( aas:value aas:siNotation aas:unitId aas:dinNotation aas:registrationAuthorityId aas:supplier aas:levelType aas:sourceOfDefinition aas:unitSymbol aas:eceCode aas:valueFormat aas:valueList aas:symbol rdf:type aas:unitName aas:siName aas:definition aas:dataType aas:unit aas:shortName aas:eceName aas:nistName aas:preferredName aas:conversionFactor ) ;
+    sh:targetClass aas:DataSpecificationContent .
+
+aas:Key a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A key is a reference to an element by its ID." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The key value, for example an IRDI or an URI" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:value ],
+        [ sh:description "Denotes which kind of entity is referenced." ;
+            sh:in ( "FragmentReference" "GlobalReference" "AnnotatedRelationshipElement" "AssetAdministrationShell" "BasicEventElement" "Blob" "Capability" "ConceptDescription" "Identifiable" "DataElement" "Entity" "EventElement" "File" "MultiLanguageProperty" "Operation" "Property" "Range" "ReferenceElement" "Referable" "RelationshipElement" "Submodel" "SubmodelElement" "SubmodelElementList" "SubmodelElementCollection" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path aas:type ] ;
+    sh:targetClass aas:Key .
+
+aas:Resource a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Resource represents an address to a file (a locator). The value is an URI that can represent an absolute or relative path" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Content type of the content of the file." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:contentType ;
+            sh:pattern "^([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+/([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+([ \\t]*;[ \\t]*([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+=(([!#$%&'*+\\-.^_`|~0-9a-zA-Z])+|\"(([\\t !#-\\[\\]-~]|[\\x80-\\xff])|\\\\([\\t !-~]|[\\x80-\\xff]))*\"))*$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Path and name of the resource (with file extension)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:path ;
+            sh:pattern "^file:(//((localhost|(\\[((([0-9A-Fa-f]{1,4}:){6}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::([0-9A-Fa-f]{1,4}:){5}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|([0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){4}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){3}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){2}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:){2}([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){4}[0-9A-Fa-f]{1,4})?::([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(([0-9A-Fa-f]{1,4}:){5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(([0-9A-Fa-f]{1,4}:){6}[0-9A-Fa-f]{1,4})?::)|[vV][0-9A-Fa-f]+\\.([a-zA-Z0-9\\-._~]|[!$&'()*+,;=]|:)+)\\]|([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])|([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=])*)))?/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?|/((([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))+(/(([a-zA-Z0-9\\-._~]|%[0-9A-Fa-f][0-9A-Fa-f]|[!$&'()*+,;=]|[:@]))*)*)?)$" ] ;
+    sh:targetClass aas:Resource .
+
+aas:Submodel a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A submodel defines a specific aspect of the asset represented by the AAS." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path aas:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 12 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 11 ;
+            sh:path aas:displayName ],
+        [ sh:datatype xsd:string ;
+            sh:description "The globally unique identification of the element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:id ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path aas:description ],
+        [ sh:class aas:AdministrativeInformation ;
+            sh:description "Administrative information of an identifiable element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:administration ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path aas:kind ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:qualifiers ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path aas:checksum ],
+        [ sh:class aas:SubmodelElement ;
+            sh:description "A submodel consists of zero or more submodel elements." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:submodelElements ] ;
+    sh:targetClass aas:Submodel .
+
+aas:ValueList a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A set of value reference pairs." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:ValueReferencePair ;
+            sh:description "A pair of a value together with its global unique id." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:valueReferencePairs ] ;
+    sh:targetClass aas:ValueList .
+
+aas:ValueReferencePair a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A value reference pair within a value list. Each value has a global unique id defining its semantic." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "Global unique id of the value." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:valueId ],
+        [ sh:datatype xsd:string ;
+            sh:description "The value of the referenced concept definition of the value in valueId." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:value ] ;
+    sh:targetClass aas:ValueReferencePair .
+
+aas:SpecificAssetId a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A specific asset ID describes a generic supplementary identifying attribute of the asset." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:Reference ;
+            sh:description "The (external) subject the key belongs to or has meaning to." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:externalSubjectId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the identifier" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:name ],
+        [ sh:datatype xsd:string ;
+            sh:description "The value of the specific asset identifier with the corresponding name." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:value ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:semanticId ] ;
+    sh:targetClass aas:SpecificAssetId .
+
+aas:OperationVariable a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "The value of an operation variable is a submodel element that is used as input and/or output variable of an operation." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:SubmodelElement ;
+            sh:description "Describes an argument or result of an operation via a submodel element" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:value ] ;
+    sh:targetClass aas:OperationVariable .
+
+aas:AdministrativeInformation a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Administrative meta-information for an element like version information." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Version of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:version ],
+        [ sh:datatype xsd:string ;
+            sh:description "Revision of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:revision ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path aas:embeddedDataSpecifications ] ;
+    sh:targetClass aas:AdministrativeInformation .
+
+aas:SubmodelElement a sh:NodeShape ;
+    sh:closed false ;
+    sh:description "A submodel element is an element suitable for the description and differentiation of assets." ;
+    sh:ignoredProperties ( aas:valueTypeListElement aas:first aas:globalAssetId aas:messageBroker aas:contentType aas:direction aas:inoutputVariables aas:minInterval aas:second aas:statements aas:typeValueListElement aas:valueId aas:inputVariables aas:outputVariables aas:state aas:value aas:specificAssetId aas:semanticIdListElement aas:lastUpdate aas:messageTopic rdf:type aas:maxInterval aas:observed aas:min aas:annotations aas:max aas:valueType aas:orderRelevant aas:entityType ) ;
+    sh:property [ sh:datatype rdf:langString ;
+            sh:description "Description or comments on the element." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:description ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:datatype xsd:string ;
+            sh:description "Checksum to be used to determine if an Referable (including its aggregated child elements) has changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:checksum ],
+        [ sh:datatype rdf:langString ;
+            sh:description "Display name. Can be provided in several languages." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path aas:displayName ],
+        [ sh:class aas:Extension ;
+            sh:description "An extension of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path aas:extensions ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:semanticId ],
+        [ sh:description "Kind of the element: either type or instance." ;
+            sh:in ( "Template" "Instance" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path aas:kind ],
+        [ sh:datatype xsd:string ;
+            sh:description "The category is a value that gives further meta information w.r.t. to the class of the element. It affects the expected existence of attributes and the applicability of constraints." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:category ],
+        [ sh:datatype xsd:string ;
+            sh:description "In case of identifiables this attribute is a short name of the element. In case of referable this ID is an identifying string of the element within its name space." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path aas:idShort ;
+            sh:pattern "^[a-zA-Z][a-zA-Z0-9_]+$" ],
+        [ sh:class aas:EmbeddedDataSpecification ;
+            sh:description "Embedded data specification." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path aas:embeddedDataSpecifications ],
+        [ sh:class aas:Qualifier ;
+            sh:description "Additional qualification of a qualifiable element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path aas:qualifiers ] ;
+    sh:targetClass aas:SubmodelElement .
+
+aas:Qualifier a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A qualifier is a type-value-pair that makes additional statements w.r.t. the value of the element." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The qualifier kind describes the kind of the qualifier that is applied to the element." ;
+            sh:in ( "ValueQualifier" "ConceptQualifier" "TemplateQualifier" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path aas:kind ],
+        [ sh:datatype xsd:string ;
+            sh:description "The qualifier value is the value of the qualifier." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:value ],
+        [ sh:datatype xsd:string ;
+            sh:description "The qualifier type describes the type of the qualifier that is applied to the element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path aas:type ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:semanticId ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the global unique ID of a coded value." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path aas:valueId ],
+        [ sh:description "Data type of the qualifier value." ;
+            sh:in ( "AnyUri" "Base64Binary" "Boolean" "Date" "DateTime" "DateTimeStamp" "Decimal" "Double" "Duration" "Float" "GDay" "GMonth" "GMonthDay" "GYear" "GYearMonth" "HexBinary" "String" "Time" "DayTimeDuration" "YearMonthDuration" "Integer" "Long" "Int" "Short" "Byte" "NonNegativeInteger" "PositiveInteger" "UnsignedLong" "UnsignedInt" "UnsignedShort" "UnsignedByte" "NonPositiveInteger" "NegativeInteger" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path aas:valueType ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path aas:supplementalSemanticIds ] ;
+    sh:targetClass aas:Qualifier .
+
+aas:EmbeddedDataSpecification a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Embed the content of a data specification." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class aas:DataSpecificationContent ;
+            sh:description "Actual content of the data specification" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:dataSpecificationContent ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to the data specification" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:dataSpecification ] ;
+    sh:targetClass aas:EmbeddedDataSpecification .
+
+aas:Extension a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Single extension of an element." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Value of the extension" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path aas:value ],
+        [ sh:class aas:Reference ;
+            sh:description "Reference to an element the extension refers to." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:refersTo ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of a supplemental semantic definition of the element. It is called supplemental semantic ID of the element." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path aas:supplementalSemanticIds ],
+        [ sh:class aas:Reference ;
+            sh:description "Identifier of the semantic definition of the element. It is called semantic ID of the element or also main semantic ID of the element." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path aas:semanticId ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the extension." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path aas:name ],
+        [ sh:description "Type of the value of the extension." ;
+            sh:in ( "AnyUri" "Base64Binary" "Boolean" "Date" "DateTime" "DateTimeStamp" "Decimal" "Double" "Duration" "Float" "GDay" "GMonth" "GMonthDay" "GYear" "GYearMonth" "HexBinary" "String" "Time" "DayTimeDuration" "YearMonthDuration" "Integer" "Long" "Int" "Short" "Byte" "NonNegativeInteger" "PositiveInteger" "UnsignedLong" "UnsignedInt" "UnsignedShort" "UnsignedByte" "NonPositiveInteger" "NegativeInteger" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path aas:valueType ] ;
+    sh:targetClass aas:Extension .
+
+aas:Reference a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "Reference to either a model element of the same or another AAS or to an external entity." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Type of the reference." ;
+            sh:in ( "GlobalReference" "ModelReference" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path aas:type ],
+        [ sh:class aas:Key ;
+            sh:description "Unique references in their name space." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path aas:keys ],
+        [ sh:class aas:Reference ;
+            sh:description "'semanticId' of the referenced model element ('type' = 'ModelReference')." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path aas:referredSemanticId ] ;
+    sh:targetClass aas:Reference .
+
+
